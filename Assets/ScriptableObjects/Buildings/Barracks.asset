@@ -13,5 +13,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitsToProduce:
   - {fileID: 11400000, guid: 9ff74ad007f196c40bd38c8761745461, type: 2}
+  - {fileID: 11400000, guid: 8479c363331206a488eaaa70072a2f90, type: 2}
   type: 1
   cost: 1

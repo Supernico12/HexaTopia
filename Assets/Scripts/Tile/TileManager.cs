@@ -27,9 +27,11 @@ public class TileManager : MonoBehaviour
             return currentController.tile;
         }
     }
+    BuildingController currentSelectedBuilding;
     UnitController currentSelectedUnit;
     bool isFocused;
     bool isUnitSelected;
+    bool isBuildingSelected;
     int columns = 5;
     int rows = 5;
 
@@ -58,6 +60,11 @@ public class TileManager : MonoBehaviour
             isFocused = false;
             return;
 
+        }
+        if (isBuildingSelected)
+        {
+            isBuildingSelected = false;
+            currentSelectedBuilding.DisFocus();
         }
         if (!isFocused)
         {
@@ -88,6 +95,18 @@ public class TileManager : MonoBehaviour
             isFocused = true;
             isUnitSelected = true;
 
+
+        }
+        else
+        {
+
+            if (currentTile.currentBuilding != Buildings.None)
+            {
+                currentSelectedBuilding = currentController.GetComponentInChildren<BuildingController>();
+                currentSelectedBuilding.OnFocus(currentController);
+                isBuildingSelected = true;
+
+            }
         }
 
     }

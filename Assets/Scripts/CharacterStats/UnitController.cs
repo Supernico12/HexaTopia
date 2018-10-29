@@ -12,6 +12,11 @@ public class UnitController : MonoBehaviour
 
     List<TileController> possibleTiles = new List<TileController>();
     // Deecha , Abajo , Izquierda , Arriba
+
+    public void SetUnit(Unit unit)
+    {
+        this.unit = unit;
+    }
     public void SetController(TileController controller)
     {
         currentTile = controller;
