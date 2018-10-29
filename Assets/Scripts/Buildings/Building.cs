@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour
+[CreateAssetMenu(menuName = "Building", fileName = "New Building")]
+public class Building : ScriptableObject
 {
 
-    [SerializeField] Unit[] unitsToProduce;
-    [SerializeField] UIController uIController;
-    Tile tile;
+    public Unit[] unitsToProduce;
+    public Buildings type;
+    public float cost;
+
 
 
 
