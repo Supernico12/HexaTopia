@@ -29,8 +29,15 @@ public class BuildingController : MonoBehaviour
         controller.SetUnit(selectedUnit);
 
         currentTile.tile.currentUnit = selectedUnit.type;
+
+        unit.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
+        MeshFilter filter = unit.AddComponent<MeshFilter>();
+        filter.sharedMesh = selectedUnit.mesh;
+
         unit.transform.parent = currentTile.transform;
-        unit.transform.position = currentTile.transform.position;
+        unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
+        unit.transform.localScale /= 2;
+        DisFocus();
 
     }
 
