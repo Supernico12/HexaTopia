@@ -8,6 +8,7 @@ public class BuildingController : MonoBehaviour
     Building building;
     UIController controller;
     TileController currentTile;
+    List<UnitController> housedUnits = new List<UnitController>();
 
     public void OnFocus(TileController tile)
     {
@@ -23,21 +24,25 @@ public class BuildingController : MonoBehaviour
 
     public void CreateUnit(int index)
     {
-        Unit selectedUnit = building.unitsToProduce[index];
-        GameObject unit = new GameObject(selectedUnit.name);
-        UnitController controller = unit.AddComponent<UnitController>();
-        controller.SetUnit(selectedUnit);
+        if (building.maxUnits > housedUnits.Count)
+        {
+            Unit selectedUnit = building.unitsToProduce[index];
+            GameObject unit = new GameObject(selectedUnit.name);
+            UnitController controller = unit.AddComponent<UnitController>();
+            controller.SetUnit(selectedUnit);
 
-        currentTile.tile.currentUnit = selectedUnit.type;
+            currentTile.tile.currentUnit = selectedUnit.type;
 
-        unit.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
-        MeshFilter filter = unit.AddComponent<MeshFilter>();
-        filter.sharedMesh = selectedUnit.mesh;
+            unit.AddComponent<MeshRenderer>().sharedMaterial = new Material(Shader.Find("Standard"));
+            MeshFilter filter = unit.AddComponent<MeshFilter>();
+            filter.sharedMesh = selectedUnit.mesh;
 
-        unit.transform.parent = currentTile.transform;
-        unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
-        unit.transform.localScale /= 2;
-        DisFocus();
+            unit.transform.parent = currentTile.transform;
+            unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
+            unit.transform.localScale /= 2;
+            housedUnits.Add(controller);
+            DisFocus();
+        }
 
     }
 

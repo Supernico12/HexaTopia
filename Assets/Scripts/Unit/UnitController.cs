@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] Unit unit;
+    [SerializeField] protected Unit unit;
 
     TileManager manager;
     TileController currentTile;
@@ -21,7 +21,7 @@ public class UnitController : MonoBehaviour
     {
         currentTile = controller;
     }
-    public void OnSelected()
+    public virtual void OnSelected()
     {
 
         foreach (Vector2 movement in unit.Movements)
@@ -38,7 +38,7 @@ public class UnitController : MonoBehaviour
         }
     }
 
-    public void OnDiselected()
+    public virtual void OnDiselected()
     {
         foreach (TileController markedTile in possibleTiles)
         {
@@ -83,7 +83,7 @@ public class UnitController : MonoBehaviour
 
         currentTile.tile.currentUnit = unit.type;
     }
-    void Start()
+    public virtual void Start()
     {
         manager = TileManager.instance;
     }

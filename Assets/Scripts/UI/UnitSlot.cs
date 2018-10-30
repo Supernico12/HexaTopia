@@ -12,19 +12,21 @@ public class UnitSlot : MonoBehaviour
     TextMeshProUGUI text;
     BuildingController controller;
 
-    public void SetContent(Unit unit, BuildingController control, int index)
+    public virtual void SetContent(Unit unit, BuildingController control, int index)
     {
 
-        text.text = unit.name;
 
+        text = GetComponentInChildren<TextMeshProUGUI>();
         controller = control;
         this.index = index;
+        text.text = unit.name;
     }
 
-    public void OnTouch()
+    public virtual void OnTouch()
     {
         controller.CreateUnit(index);
     }
+
 
 
 

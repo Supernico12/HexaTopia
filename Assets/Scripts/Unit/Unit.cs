@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Unit", fileName = "New Unit")]
+[CreateAssetMenu(menuName = "Unit/Solider", fileName = "New Unit")]
 public class Unit : ScriptableObject
 {
     public new string name = "New Unit";
@@ -14,8 +14,10 @@ public class Unit : ScriptableObject
     public int movementSpeed = 1;
     public Mesh mesh;
     public UnitFlags type = UnitFlags.None;
-
+    public Teams team;
     public Vector2[] Movements = { new Vector2(1, 0), new Vector2(-1, 0), new Vector2(0, -1),
     new Vector2(0, 1) , new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, -1), new Vector2(-1, 1) };
 
 }
+
+public enum Teams { Player1, Player2, Player3, Player4 };

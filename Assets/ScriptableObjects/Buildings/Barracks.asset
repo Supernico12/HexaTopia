@@ -11,8 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3698dce6a4d9c49bdae7f43017d0d0, type: 3}
   m_Name: Barracks
   m_EditorClassIdentifier: 
+  name: Barracks
   unitsToProduce:
   - {fileID: 11400000, guid: 9ff74ad007f196c40bd38c8761745461, type: 2}
   - {fileID: 11400000, guid: 8479c363331206a488eaaa70072a2f90, type: 2}
   type: 1
   cost: 1
+  maxUnits: 3
+  teams: 0
