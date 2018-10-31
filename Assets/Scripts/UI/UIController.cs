@@ -18,18 +18,14 @@ public class UIController : MonoBehaviour
 
 
     [SerializeField] Transform unitsButtonsParent;
-
+    [SerializeField] Material[] materials;
     [SerializeField] GameObject buttonPrefab;
     List<UnitSlot> unitbuttons = new List<UnitSlot>();
     List<BuildingSlot> buildingButtons = new List<BuildingSlot>();
 
     public void SetButtonsCreateUnit(Unit[] units, BuildingController controller)
     {
-        foreach (UnitSlot slot in unitbuttons)
-        {
-            Destroy(slot.gameObject);
-        }
-        unitbuttons.Clear();
+
         for (int i = 0; i < units.Length; i++)
         {
             GameObject button = Instantiate(buttonPrefab, unitsButtonsParent);
@@ -49,12 +45,7 @@ public class UIController : MonoBehaviour
 
     public void SetButtonsCreateBuilding(Building[] buildings, ViligerController controller)
     {
-        foreach (BuildingSlot slot in buildingButtons)
-        {
-            Destroy(slot.gameObject);
 
-        }
-        unitbuttons.Clear();
 
         for (int i = 0; i < buildings.Length; i++)
         {
@@ -76,5 +67,23 @@ public class UIController : MonoBehaviour
     public void CloseUnitMenu()
     {
         unitsButtonsParent.gameObject.SetActive(false);
+        foreach (UnitSlot slot in unitbuttons)
+        {
+            Destroy(slot.gameObject);
+        }
+
+        unitbuttons.Clear();
+
+        foreach (BuildingSlot slot in buildingButtons)
+        {
+            Destroy(slot.gameObject);
+
+        }
+        buildingButtons.Clear();
+    }
+
+    public Material GetMaterial(int index)
+    {
+        return materials[index];
     }
 }

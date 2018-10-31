@@ -14,7 +14,6 @@ public class Unit : ScriptableObject
     public int movementSpeed = 1;
     public Mesh mesh;
     public UnitFlags type = UnitFlags.None;
-    public Teams team;
     public Vector2[] Movements = { new Vector2(1, 0), new Vector2(-1, 0), new Vector2(0, -1),
     new Vector2(0, 1) , new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, -1), new Vector2(-1, 1) };
 

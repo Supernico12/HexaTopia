@@ -19,3 +19,4 @@ MonoBehaviour:
   cost: 1
   maxUnits: 3
   teams: 0
+  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

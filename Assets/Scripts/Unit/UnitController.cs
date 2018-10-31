@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class UnitController : MonoBehaviour
 {
-    [SerializeField] protected Unit unit;
+    [SerializeField] public Unit unit;
 
     TileManager manager;
-    TileController currentTile;
+    protected TileController currentTile;
+    public Teams myTeam;
+    public CharacterStats myStats;
 
-
+    BuildingController myHouse;
     List<TileController> possibleTiles = new List<TileController>();
     // Deecha , Abajo , Izquierda , Arriba
 
-    public void SetUnit(Unit unit)
+    public void SetUnit(Unit unit, BuildingController myHouse)
     {
         this.unit = unit;
+        this.myHouse = myHouse;
+    }
+    public void SetStats(CharacterStats stats)
+    {
+        myStats = stats;
     }
     public void SetController(TileController controller)
     {
@@ -60,7 +67,11 @@ public class UnitController : MonoBehaviour
                 }
                 else
                 {
-                    Attack();
+                    UnitController targetController = target.GetComponentInChildren<UnitController>();
+                    if (myTeam != targetController.myTeam)
+                    {
+                        Attack(target);
+                    }
                 }
 
             }
@@ -87,9 +98,32 @@ public class UnitController : MonoBehaviour
     {
         manager = TileManager.instance;
     }
-    void Attack()
+    void Attack(TileController target)
     {
+        CharacterStats targetStats = target.GetComponentInChildren<UnitController>().myStats;
+        float attackForce = (myStats.currentHealth / unit.health) * myStats.damage;
+        float defenceForce = (targetStats.currentHealth / targetStats.controller.unit.health) * targetStats.defence;
+        float totalForce = attackForce + defenceForce;
+        float myDamage = Mathf.RoundToInt((attackForce / totalForce) * 4.5f * myStats.damage);
+        float hisDamage = Mathf.RoundToInt((defenceForce / totalForce) * 4.5f * targetStats.defence);
+        targetStats.TakeDamage(myDamage);
+        if (targetStats.currentHealth > 0)
+        {
+            myStats.TakeDamage(hisDamage);
 
+        }
+        else
+        {
+            Move(target);
+        }
+
+    }
+
+    public void Die()
+    {
+        currentTile.tile.currentUnit = UnitFlags.None;
+        myHouse.RemoveUnit();
+        Destroy(gameObject);
     }
 
 }

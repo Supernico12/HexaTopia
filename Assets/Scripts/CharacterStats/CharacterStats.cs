@@ -2,33 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterStats : MonoBehaviour
+[System.Serializable]
+public class CharacterStats
 {
 
-    [SerializeField] float maxHealth;
-    [SerializeField] float movmentSpeed;
+    public UnitController controller;
 
-    [SerializeField] float damage;
-    [SerializeField] float defence;
+    public float damage;
+    public float defence;
 
-    float currentHealth;
-    void Start()
+    public float currentHealth;
+
+    public CharacterStats(float damage, float defence, float currentHealth, UnitController controller)
     {
-        currentHealth = maxHealth;
+        this.damage = damage;
+        this.defence = defence;
+        this.currentHealth = currentHealth;
+        this.controller = controller;
     }
 
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
-            Die();
+            controller.Die();
         }
     }
 
-    public virtual void Die()
-    {
-        Destroy(gameObject);
-    }
+
 
 }

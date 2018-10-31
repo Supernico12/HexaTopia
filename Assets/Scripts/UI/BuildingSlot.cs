@@ -17,6 +17,6 @@ public class BuildingSlot : MonoBehaviour
     }
     public void OnTouch()
     {
-
+        controller.CreateBuilding(index);
     }
 }

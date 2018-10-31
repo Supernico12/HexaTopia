@@ -11,6 +11,7 @@ public class Building : ScriptableObject
     public float cost;
     public int maxUnits;
     public Teams teams;
+    public Mesh mesh;
 
 
 

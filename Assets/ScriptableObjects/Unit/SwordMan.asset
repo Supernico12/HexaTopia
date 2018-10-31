@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: SwordMan
   health: 10
-  damage: 1
-  defence: 1
+  damage: 2
+  defence: 2
   range: 1
   movementSpeed: 1
   mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
