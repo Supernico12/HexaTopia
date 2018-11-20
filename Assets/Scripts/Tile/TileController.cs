@@ -13,7 +13,7 @@ public class TileController : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log(name);
+        //Debug.Log(name);
         manager.OnFocus(this);
 
 

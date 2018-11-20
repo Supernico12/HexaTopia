@@ -11,9 +11,11 @@ public class UnitController : MonoBehaviour
     protected TileController currentTile;
     public Teams myTeam;
     public CharacterStats myStats;
+    protected UIController uIController;
 
     public HealthUI myhealthUI;
 
+    protected PlayersManager playersManager;
     BuildingController myHouse;
     List<TileController> possibleTiles = new List<TileController>();
     // Deecha , Abajo , Izquierda , Arriba
@@ -33,19 +35,24 @@ public class UnitController : MonoBehaviour
     }
     public virtual void OnSelected()
     {
-
-        foreach (Vector2 movement in unit.Movements)
+        //If Selected Unit = Current Turn
+        if (playersManager.GetTurn == (int)myTeam)
         {
-            TileController posTile = manager.TilesCalculator(currentTile.tile.index, movement);
-            if (posTile != null)
+
+            foreach (Vector2 movement in unit.Movements)
             {
-                Material mat = posTile.GetComponent<Renderer>().material;
-                mat.color = Color.red;
-                possibleTiles.Add(posTile);
+                TileController posTile = manager.TilesCalculator(currentTile.tile.index, movement);
+                if (posTile != null)
+                {
+                    Material mat = posTile.GetComponent<Renderer>().material;
+                    mat.color = Color.red;
+                    possibleTiles.Add(posTile);
 
 
+                }
             }
         }
+        uIController.SetDescriptionUnit(unit.name, unit.damage.ToString(), unit.defence.ToString());
     }
 
     public virtual void OnDiselected()
@@ -56,6 +63,7 @@ public class UnitController : MonoBehaviour
             mat.color = Color.white;
         }
         possibleTiles.Clear();
+        uIController.CloseUnitDescriptions();
     }
 
     public void OnMove(TileController target)
@@ -104,6 +112,9 @@ public class UnitController : MonoBehaviour
     {
         manager = TileManager.instance;
         myhealthUI = GetComponent<HealthUI>();
+        uIController = UIController.instance;
+        playersManager = PlayersManager.instance;
+        currentTile = GetComponentInParent<TileController>();
     }
     void Attack(TileController target)
     {
@@ -131,7 +142,8 @@ public class UnitController : MonoBehaviour
     public void Die()
     {
         currentTile.tile.currentUnit = UnitFlags.None;
-        myHouse.RemoveUnit();
+        if (myHouse != null)
+            myHouse.RemoveUnit();
         myhealthUI.OnDestroyed();
         Destroy(gameObject);
     }

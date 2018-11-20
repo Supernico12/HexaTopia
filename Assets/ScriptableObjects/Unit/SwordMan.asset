@@ -14,9 +14,13 @@ MonoBehaviour:
   name: SwordMan
   health: 10
   damage: 2
-  defence: 2
+  defence: 1
   range: 1
   movementSpeed: 1
+  cost:
+    food: 1
+    wood: 0
+    gold: 0
   mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   type: 2
   Movements:

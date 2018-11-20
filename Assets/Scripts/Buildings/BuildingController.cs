@@ -6,16 +6,26 @@ public class BuildingController : MonoBehaviour
 {
     [SerializeField]
     Building building;
-    UIController controller;
+    UIController uIController;
     TileController currentTile;
     //List<UnitController> housedUnits = new List<UnitController>();
     float housedAmount;
     public Teams myTeam;
 
+    PlayersManager playersManager;
+    Resource myPlayerResources
+    {
+        get { return playersManager.GetPlayerResources(((int)myTeam)); }
+        //get { return playersManager.playerBank[(int)building.teams]; }
+    }
+
     public void OnFocus(TileController tile)
     {
-        currentTile = tile;
-        controller.SetButtonsCreateUnit(building.unitsToProduce, this);
+        if (playersManager.GetTurn == (int)myTeam)
+        {
+            currentTile = tile;
+            uIController.SetButtonsCreateUnit(building.unitsToProduce, this);
+        }
 
     }
     public void SetBuilding(Building building)
@@ -25,7 +35,7 @@ public class BuildingController : MonoBehaviour
 
     public void DisFocus()
     {
-        controller.CloseUnitMenu();
+        uIController.CloseUnitMenu();
     }
 
     public void CreateUnit(int index)
@@ -35,26 +45,33 @@ public class BuildingController : MonoBehaviour
             Unit selectedUnit = building.unitsToProduce[index];
             // This line is usless -->>   line
 
-            GameObject unit = new GameObject(selectedUnit.name);
-            HealthUI healthtxt = unit.AddComponent<HealthUI>();
-            healthtxt.CreateText(building.healthUI);
-            UnitController controller = unit.AddComponent<UnitController>();
-            controller.SetUnit(selectedUnit, this);
-            controller.myTeam = myTeam;
-            currentTile.tile.currentUnit = selectedUnit.type;
-            Material mat = GetComponent<MeshRenderer>().material;
-            unit.AddComponent<MeshRenderer>().sharedMaterial = mat;
-            MeshFilter filter = unit.AddComponent<MeshFilter>();
-            filter.sharedMesh = selectedUnit.mesh;
+            if (myPlayerResources.HasResources(selectedUnit.cost))
+            {
+                myPlayerResources.RemoveResources(selectedUnit.cost);
+                uIController.OnResourcesChanged();
+                Debug.Log(myPlayerResources.wood);
+                GameObject unit = new GameObject(selectedUnit.name);
+                HealthUI healthtxt = unit.AddComponent<HealthUI>();
+                healthtxt.CreateText(building.healthUI);
+                UnitController controller = unit.AddComponent<UnitController>();
+                controller.SetUnit(selectedUnit, this);
+                controller.myTeam = myTeam;
+                currentTile.tile.currentUnit = selectedUnit.type;
+                Material mat = GetComponent<MeshRenderer>().material;
+                unit.AddComponent<MeshRenderer>().sharedMaterial = mat;
+                MeshFilter filter = unit.AddComponent<MeshFilter>();
+                filter.sharedMesh = selectedUnit.mesh;
 
 
-            unit.transform.parent = currentTile.transform;
-            unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
-            unit.transform.localScale /= 2;
-            housedAmount++;
-            controller.SetStats(new CharacterStats(selectedUnit.damage, selectedUnit.defence, selectedUnit.health, controller));
+                unit.transform.parent = currentTile.transform;
+                unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
+                unit.transform.localScale /= 2;
+                housedAmount++;
+                controller.SetStats(new CharacterStats(selectedUnit.damage, selectedUnit.defence, selectedUnit.health, controller));
 
-            DisFocus();
+
+                DisFocus();
+            }
         }
 
     }
@@ -65,7 +82,8 @@ public class BuildingController : MonoBehaviour
     }
     void Start()
     {
-        controller = UIController.instance;
+        uIController = UIController.instance;
+        playersManager = PlayersManager.instance;
 
     }
 }

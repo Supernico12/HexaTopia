@@ -18,10 +18,25 @@ public class UIController : MonoBehaviour
 
 
     [SerializeField] Transform unitsButtonsParent;
+    [SerializeField] Transform unitsDescriptionParent;
+    [SerializeField] Transform resourcesParent;
     [SerializeField] Material[] materials;
     [SerializeField] GameObject buttonPrefab;
     List<UnitSlot> unitbuttons = new List<UnitSlot>();
     List<BuildingSlot> buildingButtons = new List<BuildingSlot>();
+
+
+    TextMeshProUGUI[] descriptionTexts;
+    TextMeshProUGUI[] resourcesText;
+    PlayersManager playerManager;
+    void Start()
+    {
+        descriptionTexts = unitsDescriptionParent.GetComponentsInChildren<TextMeshProUGUI>();
+        resourcesText = resourcesParent.GetComponentsInChildren<TextMeshProUGUI>();
+        playerManager = PlayersManager.instance;
+        playerManager.OnTurnEnded += OnTurnedChange;
+        OnResourcesChanged();
+    }
 
     public void SetButtonsCreateUnit(Unit[] units, BuildingController controller)
     {
@@ -41,6 +56,7 @@ public class UIController : MonoBehaviour
         }
 
         unitsButtonsParent.gameObject.SetActive(true);
+        unitsDescriptionParent.gameObject.SetActive(false);
     }
 
     public void SetButtonsCreateBuilding(Building[] buildings, ViligerController controller)
@@ -64,6 +80,23 @@ public class UIController : MonoBehaviour
         unitsButtonsParent.gameObject.SetActive(true);
     }
 
+    public void SetButtonGetResource(ViligerController vilController)
+    {
+        GameObject button = Instantiate(buttonPrefab, unitsButtonsParent);
+        Button buttonScript = button.GetComponent<Button>();
+
+        BuildingSlot slot = button.AddComponent<BuildingSlot>();
+
+        //slot.SetContent(controller, buildings[i], i);
+        buttonScript.onClick.AddListener(slot.OnTouch);
+
+
+        buildingButtons.Add(slot);
+
+
+        unitsButtonsParent.gameObject.SetActive(true);
+
+    }
     public void CloseUnitMenu()
     {
         unitsButtonsParent.gameObject.SetActive(false);
@@ -86,4 +119,36 @@ public class UIController : MonoBehaviour
     {
         return materials[index];
     }
+
+
+    public void SetDescriptionUnit(string name, string attack, string defence)
+    {
+        unitsDescriptionParent.gameObject.SetActive(true);
+        descriptionTexts[0].text = name;
+        descriptionTexts[1].text = "Attack: " + attack;
+        descriptionTexts[2].text = "Defence: " + defence;
+    }
+
+    public void CloseUnitDescriptions()
+    {
+        unitsDescriptionParent.gameObject.SetActive(false);
+    }
+
+    public void OnResourcesChanged()
+    {
+        Resource rec = playerManager.GetPlayerResourcesbyTurn();
+        resourcesText[1].text = "Food: " + rec.food.ToString();
+        resourcesText[2].text = "Wood: " + rec.wood.ToString();
+        resourcesText[3].text = "Gold: " + rec.gold.ToString();
+    }
+
+
+
+
+    void OnTurnedChange()
+    {
+        resourcesText[0].text = ((Teams)playerManager.GetTurn).ToString();
+        OnResourcesChanged();
+    }
 }
+

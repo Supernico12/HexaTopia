@@ -9,20 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d5d4448f1e225ea4eb23057008bda76a, type: 3}
-  m_Name: Villager
+  m_Name: ManuelSanchezDeLaVega
   m_EditorClassIdentifier: 
-  name: Villager
-  health: 10
-  damage: 1
-  defence: 1
-  range: 1
-  movementSpeed: 1
-  cost:
-    food: 0
-    wood: 0
-    gold: 0
-  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  type: 1
+  name: ManuelSanchezDeLaVega
+  health: 100
+  damage: 100
+  defence: 100
+  range: 100
+  movementSpeed: 100
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  type: 2
   Movements:
   - {x: 1, y: 0}
   - {x: -1, y: 0}

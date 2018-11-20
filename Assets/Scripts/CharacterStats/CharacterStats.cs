@@ -24,7 +24,7 @@ public class CharacterStats
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log(currentHealth);
+        //Debug.Log(currentHealth);
         if (currentHealth <= 0)
         {
             controller.Die();

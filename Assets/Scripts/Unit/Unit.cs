@@ -12,10 +12,12 @@ public class Unit : ScriptableObject
     public float defence = 1;
     public int range = 1;
     public int movementSpeed = 1;
+    public Resource cost;
     public Mesh mesh;
     public UnitFlags type = UnitFlags.None;
     public Vector2[] Movements = { new Vector2(1, 0), new Vector2(-1, 0), new Vector2(0, -1),
     new Vector2(0, 1) , new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, -1), new Vector2(-1, 1) };
+
 
 
 

@@ -8,9 +8,10 @@ public class Building : ScriptableObject
     new public string name;
     public Unit[] unitsToProduce;
     public Buildings type;
-    public float cost;
+
     public int maxUnits;
-    public Teams teams;
+    public Resource cost;
+
     public Mesh mesh;
     public GameObject healthUI;
 

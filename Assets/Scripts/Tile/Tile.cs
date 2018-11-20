@@ -9,6 +9,7 @@ public class Tile
     public TilesTypes type;
     public Buildings currentBuilding;
     public UnitFlags currentUnit;
+    public ResourceType currentResource;
     public int index;
 
 
@@ -27,4 +28,4 @@ public class Tile
 public enum Buildings { None, Barracks, ArcheryRange, Stable, TownCenter }
 public enum TilesTypes { Plain, Forest, Mountain, Water }
 public enum UnitFlags { None, Villager, SwordsMan, Archer, Scout }
-public enum Resource { None, Food, Wood, Gold }
+public enum ResourceType { None, Food, Wood, Gold }
