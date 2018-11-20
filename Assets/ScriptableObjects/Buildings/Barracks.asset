@@ -20,3 +20,4 @@ MonoBehaviour:
   maxUnits: 3
   teams: 0
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  healthUI: {fileID: 1581172829571502, guid: 33a94e1e341d7e048adff06fbb998467, type: 2}

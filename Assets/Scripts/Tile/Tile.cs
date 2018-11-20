@@ -27,3 +27,4 @@ public class Tile
 public enum Buildings { None, Barracks, ArcheryRange, Stable, TownCenter }
 public enum TilesTypes { Plain, Forest, Mountain, Water }
 public enum UnitFlags { None, Villager, SwordsMan, Archer, Scout }
+public enum Resource { None, Food, Wood, Gold }

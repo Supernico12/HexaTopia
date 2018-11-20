@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(HealthUI))]
 public class UnitController : MonoBehaviour
 {
     [SerializeField] public Unit unit;
@@ -10,6 +11,8 @@ public class UnitController : MonoBehaviour
     protected TileController currentTile;
     public Teams myTeam;
     public CharacterStats myStats;
+
+    public HealthUI myhealthUI;
 
     BuildingController myHouse;
     List<TileController> possibleTiles = new List<TileController>();
@@ -93,10 +96,14 @@ public class UnitController : MonoBehaviour
         transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
 
         currentTile.tile.currentUnit = unit.type;
+
+
+        myhealthUI.OnChangePosition();
     }
     public virtual void Start()
     {
         manager = TileManager.instance;
+        myhealthUI = GetComponent<HealthUI>();
     }
     void Attack(TileController target)
     {
@@ -107,9 +114,11 @@ public class UnitController : MonoBehaviour
         float myDamage = Mathf.RoundToInt((attackForce / totalForce) * 4.5f * myStats.damage);
         float hisDamage = Mathf.RoundToInt((defenceForce / totalForce) * 4.5f * targetStats.defence);
         targetStats.TakeDamage(myDamage);
+        targetStats.controller.myhealthUI.OnChangeValue(targetStats.currentHealth);
         if (targetStats.currentHealth > 0)
         {
             myStats.TakeDamage(hisDamage);
+            myhealthUI.OnChangeValue(myStats.currentHealth);
 
         }
         else
@@ -123,6 +132,7 @@ public class UnitController : MonoBehaviour
     {
         currentTile.tile.currentUnit = UnitFlags.None;
         myHouse.RemoveUnit();
+        myhealthUI.OnDestroyed();
         Destroy(gameObject);
     }
 

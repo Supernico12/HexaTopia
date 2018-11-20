@@ -12,6 +12,7 @@ public class Building : ScriptableObject
     public int maxUnits;
     public Teams teams;
     public Mesh mesh;
+    public GameObject healthUI;
 
 
 

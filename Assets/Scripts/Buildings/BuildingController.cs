@@ -36,6 +36,8 @@ public class BuildingController : MonoBehaviour
             // This line is usless -->>   line
 
             GameObject unit = new GameObject(selectedUnit.name);
+            HealthUI healthtxt = unit.AddComponent<HealthUI>();
+            healthtxt.CreateText(building.healthUI);
             UnitController controller = unit.AddComponent<UnitController>();
             controller.SetUnit(selectedUnit, this);
             controller.myTeam = myTeam;
@@ -44,6 +46,7 @@ public class BuildingController : MonoBehaviour
             unit.AddComponent<MeshRenderer>().sharedMaterial = mat;
             MeshFilter filter = unit.AddComponent<MeshFilter>();
             filter.sharedMesh = selectedUnit.mesh;
+
 
             unit.transform.parent = currentTile.transform;
             unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
