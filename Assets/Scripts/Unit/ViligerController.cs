@@ -22,6 +22,7 @@ public class ViligerController : UnitController
         if (currentTile.tile.currentResource != ResourceType.None)
         {
             ResourceController resController = currentTile.GetComponentInChildren<ResourceController>();
+            uIController.SetButtonGetResource(this, resController.resourceToAdd);
 
         }
         if (playersManager.GetTurn == (int)myTeam)

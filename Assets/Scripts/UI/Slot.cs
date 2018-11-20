@@ -6,9 +6,4 @@ public class Slot : MonoBehaviour
 {
 
 
-
-    public virtual void OnTouch()
-    {
-
-    }
 }

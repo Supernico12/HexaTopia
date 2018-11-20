@@ -25,6 +25,9 @@ public class UIController : MonoBehaviour
     List<UnitSlot> unitbuttons = new List<UnitSlot>();
     List<BuildingSlot> buildingButtons = new List<BuildingSlot>();
 
+    ResourceSlot resourceSlot;
+
+
 
     TextMeshProUGUI[] descriptionTexts;
     TextMeshProUGUI[] resourcesText;
@@ -80,23 +83,24 @@ public class UIController : MonoBehaviour
         unitsButtonsParent.gameObject.SetActive(true);
     }
 
-    public void SetButtonGetResource(ViligerController vilController)
+    public void SetButtonGetResource(ViligerController vilController, Resource res)
     {
         GameObject button = Instantiate(buttonPrefab, unitsButtonsParent);
         Button buttonScript = button.GetComponent<Button>();
 
-        BuildingSlot slot = button.AddComponent<BuildingSlot>();
+        ResourceSlot slot = button.AddComponent<ResourceSlot>();
 
-        //slot.SetContent(controller, buildings[i], i);
+        slot.SetContent(vilController, res, playerManager);
         buttonScript.onClick.AddListener(slot.OnTouch);
 
 
-        buildingButtons.Add(slot);
+        resourceSlot = slot;
 
 
         unitsButtonsParent.gameObject.SetActive(true);
 
     }
+
     public void CloseUnitMenu()
     {
         unitsButtonsParent.gameObject.SetActive(false);
