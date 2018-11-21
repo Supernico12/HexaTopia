@@ -5,7 +5,12 @@ using TMPro;
 
 public class PlayersManager : MonoBehaviour
 {
-
+    [SerializeField]
+    List<UnitController>[] playersUnits = new List<UnitController>[1];
+    List<UnitController> currentUnit
+    {
+        get { return playersUnits[turn]; }
+    }
 
     #region Singleton
     public static PlayersManager instance;
@@ -30,10 +35,16 @@ public class PlayersManager : MonoBehaviour
     void Start()
     {
         playerBank = new Resource[playerQuantity];
+        playersUnits = new List<UnitController>[playerQuantity];
+        for (int i = 0; i < playersUnits.Length; i++)
+        {
+            playersUnits[i] = new List<UnitController>();
+        }
+        OnTurnEnded += RefreshUnits;
 
         for (int i = 0; i < playerBank.Length; i++)
         {
-            playerBank[i] = new Resource(300, 300, 0);
+            playerBank[i] = new Resource(3, 3, 0);
         }
     }
 
@@ -60,6 +71,30 @@ public class PlayersManager : MonoBehaviour
 
 
     }
+
+    void RefreshUnits()
+    {
+        foreach (UnitController unit in currentUnit)
+        {
+            unit.SetCanMove();
+        }
+    }
+
+    public void AddUnit(UnitController cont)
+    {
+        currentUnit.Add(cont);
+    }
+    public void AddUnit(UnitController cont, int index)
+    {
+        playersUnits[index].Add(cont);
+    }
+
+    public void RemoveUnit(UnitController cont, int index)
+    {
+        currentUnit.Remove(cont);
+    }
+
+
 
     public int GetTurn
     {

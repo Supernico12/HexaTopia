@@ -38,6 +38,7 @@ public class UIController : MonoBehaviour
         resourcesText = resourcesParent.GetComponentsInChildren<TextMeshProUGUI>();
         playerManager = PlayersManager.instance;
         playerManager.OnTurnEnded += OnTurnedChange;
+
         OnResourcesChanged();
     }
 
@@ -83,7 +84,7 @@ public class UIController : MonoBehaviour
         unitsButtonsParent.gameObject.SetActive(true);
     }
 
-    public void SetButtonGetResource(ViligerController vilController, Resource res)
+    public void SetButtonResource(ViligerController vilController, Resource res)
     {
         GameObject button = Instantiate(buttonPrefab, unitsButtonsParent);
         Button buttonScript = button.GetComponent<Button>();
@@ -97,7 +98,9 @@ public class UIController : MonoBehaviour
         resourceSlot = slot;
 
 
+
         unitsButtonsParent.gameObject.SetActive(true);
+
 
     }
 
@@ -117,6 +120,8 @@ public class UIController : MonoBehaviour
 
         }
         buildingButtons.Clear();
+
+        Destroy(resourceSlot);
     }
 
     public Material GetMaterial(int index)

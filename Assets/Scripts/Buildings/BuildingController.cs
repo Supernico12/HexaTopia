@@ -68,7 +68,7 @@ public class BuildingController : MonoBehaviour
                 unit.transform.localScale /= 2;
                 housedAmount++;
                 controller.SetStats(new CharacterStats(selectedUnit.damage, selectedUnit.defence, selectedUnit.health, controller));
-
+                playersManager.AddUnit(controller);
 
                 DisFocus();
             }

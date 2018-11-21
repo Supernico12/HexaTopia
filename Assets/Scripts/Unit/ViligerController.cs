@@ -22,10 +22,10 @@ public class ViligerController : UnitController
         if (currentTile.tile.currentResource != ResourceType.None)
         {
             ResourceController resController = currentTile.GetComponentInChildren<ResourceController>();
-            uIController.SetButtonGetResource(this, resController.resourceToAdd);
+            uIController.SetButtonResource(this, resController.resourceToAdd);
 
         }
-        if (playersManager.GetTurn == (int)myTeam)
+        else if (playersManager.GetTurn == (int)myTeam)
         {
             uIController.SetButtonsCreateBuilding(constructableBuildings, this);
         }
@@ -35,6 +35,7 @@ public class ViligerController : UnitController
     {
         base.OnDiselected();
         uIController.CloseUnitMenu();
+
     }
 
     public override void Start()
@@ -43,6 +44,8 @@ public class ViligerController : UnitController
         uIController = UIController.instance;
         playersManager = PlayersManager.instance;
         myStats = new CharacterStats(unit.damage, unit.defence, unit.health, this);
+        playersManager.AddUnit(this, (int)myTeam);
+
 
     }
     public void CreateBuilding(int index)

@@ -18,6 +18,8 @@ public class UnitController : MonoBehaviour
     protected PlayersManager playersManager;
     BuildingController myHouse;
     List<TileController> possibleTiles = new List<TileController>();
+
+    protected bool hasMoved = false;
     // Deecha , Abajo , Izquierda , Arriba
 
     public void SetUnit(Unit unit, BuildingController myHouse)
@@ -38,17 +40,19 @@ public class UnitController : MonoBehaviour
         //If Selected Unit = Current Turn
         if (playersManager.GetTurn == (int)myTeam)
         {
-
-            foreach (Vector2 movement in unit.Movements)
+            if (!hasMoved)
             {
-                TileController posTile = manager.TilesCalculator(currentTile.tile.index, movement);
-                if (posTile != null)
+                foreach (Vector2 movement in unit.Movements)
                 {
-                    Material mat = posTile.GetComponent<Renderer>().material;
-                    mat.color = Color.red;
-                    possibleTiles.Add(posTile);
+                    TileController posTile = manager.TilesCalculator(currentTile.tile.index, movement);
+                    if (posTile != null)
+                    {
+                        Material mat = posTile.GetComponent<Renderer>().material;
+                        mat.color = Color.red;
+                        possibleTiles.Add(posTile);
 
 
+                    }
                 }
             }
         }
@@ -72,6 +76,7 @@ public class UnitController : MonoBehaviour
         {
             if (target.tile.index == possibility.tile.index)
             {
+                SetCantMove();
                 if (target.tile.currentUnit == UnitFlags.None)
                 {
                     Move(target);
@@ -87,7 +92,42 @@ public class UnitController : MonoBehaviour
 
             }
 
+
         }
+
+    }
+
+    Material mat;
+    void SetCantMove()
+    {
+        hasMoved = true;
+        Renderer ren = GetComponent<Renderer>();
+        mat = ren.material;
+        Material newMat = new Material(ren.material);
+        Color newCol = newMat.color;
+        //newCol *= 1.6f;
+        newCol *= Color.gray;
+        newCol.a = 1;
+        newMat.color = newCol;
+
+        ren.material = newMat;
+
+        /*
+            var red = Color.red;
+                var lightRed = red * 1.5f;
+                var darkRed = red * 0.5f;
+
+                // Correct alpha.
+                lightRed.a = 1;
+                darkRed.a = 1;
+                */
+    }
+
+    public void SetCanMove()
+    {
+        hasMoved = false;
+        Renderer ren = GetComponent<Renderer>();
+        ren.material = mat;
 
     }
 
@@ -115,6 +155,7 @@ public class UnitController : MonoBehaviour
         uIController = UIController.instance;
         playersManager = PlayersManager.instance;
         currentTile = GetComponentInParent<TileController>();
+        SetCantMove();
     }
     void Attack(TileController target)
     {
@@ -145,6 +186,7 @@ public class UnitController : MonoBehaviour
         if (myHouse != null)
             myHouse.RemoveUnit();
         myhealthUI.OnDestroyed();
+        playersManager.RemoveUnit(this, (int)myTeam);
         Destroy(gameObject);
     }
 
