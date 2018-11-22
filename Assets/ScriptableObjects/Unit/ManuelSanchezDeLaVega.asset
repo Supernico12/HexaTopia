@@ -12,11 +12,15 @@ MonoBehaviour:
   m_Name: ManuelSanchezDeLaVega
   m_EditorClassIdentifier: 
   name: ManuelSanchezDeLaVega
-  health: 100
+  health: 1
   damage: 100
-  defence: 100
-  range: 100
-  movementSpeed: 100
+  defence: 1
+  range: 1
+  movementSpeed: 1
+  cost:
+    food: 0
+    wood: 0
+    gold: 3
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   type: 2
   Movements:

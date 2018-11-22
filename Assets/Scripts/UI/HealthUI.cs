@@ -23,11 +23,7 @@ public class HealthUI : MonoBehaviour
         {
             offset = new Vector3(0f, -0.2f, -0.5f);
         }
-        if (txtPrefab != null)
-        {
-            CreateText(txtPrefab);
 
-        }
 
     }
 
@@ -58,8 +54,15 @@ public class HealthUI : MonoBehaviour
 
     public void OnChangeValue(float newValue)
     {
+        if (txtTransform == null)
+        {
+            CreateText(txtPrefab);
+            OnChangePosition();
+
+        }
         TextMeshPro txt = txtTransform.GetComponent<TextMeshPro>();
         txt.text = newValue.ToString();
+
 
     }
 

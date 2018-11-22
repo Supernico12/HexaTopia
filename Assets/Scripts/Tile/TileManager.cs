@@ -30,33 +30,48 @@ public class TileManager : MonoBehaviour
     }
     BuildingController currentSelectedBuilding;
     UnitController currentSelectedUnit;
+    ResourceController currentSelectedResource;
     bool isFocused;
     bool isUnitSelected;
     bool isBuildingSelected;
     int columns = 5;
     int rows = 5;
 
+    int timesClicked = 0;
+
 
 
 
     public void OnFocus(TileController tileController)
     {
-        //New Tile
-        if (isUnitSelected)
+        if (tileController != currentController)
         {
-            currentSelectedUnit.OnMove(tileController);
+            //New Tile
+            if (isUnitSelected)
+            {
+                currentSelectedUnit.OnMove(tileController);
+            }
+            Diselect();
+            if (!isFocused)
+            {
+
+
+                currentController = tileController;
+                timesClicked = 0;
+                CheckEnums();
+
+                Material mat = currentController.GetComponent<Renderer>().material;
+                mat.color = Color.green;
+            }
         }
-        Diselect();
-        if (!isFocused)
+        else
         {
-
-
-            currentController = tileController;
-
+            Diselect();
+            timesClicked = (timesClicked + 1) % 2;
             CheckEnums();
-
             Material mat = currentController.GetComponent<Renderer>().material;
             mat.color = Color.green;
+
         }
 
         //GetComponent<Renderer>().material = mat;
@@ -88,6 +103,11 @@ public class TileManager : MonoBehaviour
             isBuildingSelected = false;
             currentSelectedBuilding.DisFocus();
         }
+        if (currentSelectedResource != null)
+        {
+            currentSelectedResource.OnDisFocus();
+            currentSelectedResource = null;
+        }
 
 
     }
@@ -96,7 +116,7 @@ public class TileManager : MonoBehaviour
 
     void CheckEnums()
     {
-        if (currentTile.currentUnit != UnitFlags.None)
+        if (currentTile.currentUnit != UnitFlags.None && timesClicked == 0)
         {
             Debug.Log(currentTile.name + " Has a: " + currentTile.currentUnit);
             currentSelectedUnit = currentController.GetComponentInChildren<UnitController>();
@@ -107,17 +127,21 @@ public class TileManager : MonoBehaviour
 
 
         }
-        else
+        else if (currentTile.currentBuilding != Buildings.None)
         {
+            currentSelectedBuilding = currentController.GetComponentInChildren<BuildingController>();
+            currentSelectedBuilding.OnFocus(currentController);
+            isBuildingSelected = true;
 
-            if (currentTile.currentBuilding != Buildings.None)
-            {
-                currentSelectedBuilding = currentController.GetComponentInChildren<BuildingController>();
-                currentSelectedBuilding.OnFocus(currentController);
-                isBuildingSelected = true;
-
-            }
         }
+        else if (currentTile.currentResource != ResourceType.None)
+        {
+            currentSelectedResource = currentController.GetComponentInChildren<ResourceController>();
+            currentSelectedResource.OnFocus();
+
+
+        }
+
 
     }
 
@@ -139,6 +163,12 @@ public class TileManager : MonoBehaviour
         return tiles[index];
     }
 
+    void OnTurnEnded()
+    {
+        Diselect();
+        currentController = null;
+    }
+
     public void SetMarkedTiles()
     {
 
@@ -151,7 +181,7 @@ public class TileManager : MonoBehaviour
         rows = creator.rows;
         columns = creator.columns;
         playersManager = PlayersManager.instance;
-        playersManager.OnTurnEnded += Diselect;
+        playersManager.OnTurnEnded += OnTurnEnded;
 
     }
 }

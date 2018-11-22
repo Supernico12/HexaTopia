@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
-public class UnitSlot : MonoBehaviour
+public class UnitSlot : Slot
 {
 
 
@@ -11,10 +12,13 @@ public class UnitSlot : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI text;
     BuildingController controller;
+    UIController uIController;
 
-    public virtual void SetContent(Unit unit, BuildingController control, int index)
+
+    public void SetContent(Unit unit, BuildingController control, int index)
     {
-
+        base.SetContent(unit.cost);
+        uIController = UIController.instance;
 
         text = GetComponentInChildren<TextMeshProUGUI>();
         controller = control;

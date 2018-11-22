@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class ResourceSlot : MonoBehaviour
+public class ResourceSlot : Slot
 {
 
     ViligerController vilController;
@@ -13,6 +13,7 @@ public class ResourceSlot : MonoBehaviour
 
     public void SetContent(ViligerController cont, Resource res, PlayersManager man)
     {
+        base.SetContent(res);
         resource = res;
         vilController = cont;
         manager = man;

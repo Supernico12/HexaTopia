@@ -11,6 +11,7 @@ public class BuildingController : MonoBehaviour
     //List<UnitController> housedUnits = new List<UnitController>();
     float housedAmount;
     public Teams myTeam;
+    bool isFocused;
 
     PlayersManager playersManager;
     Resource myPlayerResources
@@ -21,10 +22,17 @@ public class BuildingController : MonoBehaviour
 
     public void OnFocus(TileController tile)
     {
-        if (playersManager.GetTurn == (int)myTeam)
+        currentTile = tile;
+        if (playersManager.GetTurn == (int)myTeam && currentTile.tile.currentUnit == UnitFlags.None && !isFocused)
         {
-            currentTile = tile;
             uIController.SetButtonsCreateUnit(building.unitsToProduce, this);
+            isFocused = true;
+
+        }
+        else
+        {
+            uIController.SetBuildingDescription(building, housedAmount);
+            isFocused = false;
         }
 
     }
@@ -36,6 +44,8 @@ public class BuildingController : MonoBehaviour
     public void DisFocus()
     {
         uIController.CloseUnitMenu();
+        uIController.CloseUnitDescriptions();
+        isFocused = false;
     }
 
     public void CreateUnit(int index)

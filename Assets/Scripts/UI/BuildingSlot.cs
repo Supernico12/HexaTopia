@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public class BuildingSlot : MonoBehaviour
+using UnityEngine.UI;
+public class BuildingSlot : Slot
 {
     int index;
 
@@ -11,9 +12,11 @@ public class BuildingSlot : MonoBehaviour
 
     public void SetContent(ViligerController controller, Building building, int index)
     {
-        TextMeshProUGUI[] text = GetComponentsInChildren<TextMeshProUGUI>();
+        base.SetContent(building.cost);
+        TextMeshProUGUI text = GetComponentInChildren<TextMeshProUGUI>();
+
         this.controller = controller;
-        text[0].text = building.name;
+        text.text = building.name;
         this.index = index;
 
 
@@ -28,5 +31,6 @@ public class BuildingSlot : MonoBehaviour
     void Start()
     {
         tileManager = TileManager.instance;
+
     }
 }

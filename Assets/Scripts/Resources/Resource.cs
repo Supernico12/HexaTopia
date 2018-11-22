@@ -75,7 +75,24 @@ public class Resource
 
         return -1;
 
+    }
+    public int GetResourceCost()
+    {
 
+        if (food > 0)
+        {
+            return food;
+        }
+        if (wood > 0)
+        {
+            return wood;
+        }
+        if (gold > 0)
+        {
+            return gold;
+        }
+
+        return -1;
     }
 
 }

@@ -136,12 +136,31 @@ public class UIController : MonoBehaviour
     }
 
 
-    public void SetDescriptionUnit(string name, string attack, string defence)
+    public void SetDescriptionUnit(Unit unit, float currentHealth)
     {
         unitsDescriptionParent.gameObject.SetActive(true);
+        descriptionTexts[0].text = unit.name;
+        descriptionTexts[1].text = "Attack: " + unit.damage;
+        descriptionTexts[2].text = "Defence: " + unit.defence;
+        descriptionTexts[3].text = "Health " + currentHealth + "/" + unit.health;
+    }
+
+    public void SetBuildingDescription(Building building, float housed)
+    {
+        unitsDescriptionParent.gameObject.SetActive(true);
+        descriptionTexts[0].text = building.name;
+        descriptionTexts[1].text = "";
+        descriptionTexts[2].text = "";
+        descriptionTexts[3].text = "Housed: " + housed + "/" + building.maxUnits;
+    }
+    public void SetResourceDescription(string name, Resource res)
+    {
+
+        unitsDescriptionParent.gameObject.SetActive(true);
         descriptionTexts[0].text = name;
-        descriptionTexts[1].text = "Attack: " + attack;
-        descriptionTexts[2].text = "Defence: " + defence;
+        descriptionTexts[1].text = "";
+        descriptionTexts[2].text = "";
+        //descriptionTexts[3].text = "Get: " + housed + "/" + building.maxUnits;
     }
 
     public void CloseUnitDescriptions()
@@ -157,7 +176,20 @@ public class UIController : MonoBehaviour
         resourcesText[3].text = "Gold: " + rec.gold.ToString();
     }
 
+    public Sprite GetResourceSprite(Resource resource)
+    {
+        int index = resource.GetResourcesIcons();
+        if (index > -1)
+        {
+            return resourcesIcons[index];
+        }
+        return null;
+    }
 
+    public Sprite GetResourceSprite(int index)
+    {
+        return resourcesIcons[index];
+    }
 
 
     void OnTurnedChange()

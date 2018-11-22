@@ -56,7 +56,7 @@ public class UnitController : MonoBehaviour
                 }
             }
         }
-        uIController.SetDescriptionUnit(unit.name, unit.damage.ToString(), unit.defence.ToString());
+        uIController.SetDescriptionUnit(unit, myStats.currentHealth);
     }
 
     public virtual void OnDiselected()
@@ -161,6 +161,7 @@ public class UnitController : MonoBehaviour
         playersManager = PlayersManager.instance;
         currentTile = GetComponentInParent<TileController>();
         SetCantMove();
+        myhealthUI.OnChangeValue(unit.health);
     }
     void Attack(TileController target)
     {
@@ -192,6 +193,7 @@ public class UnitController : MonoBehaviour
             myHouse.RemoveUnit();
         myhealthUI.OnDestroyed();
         playersManager.RemoveUnit(this, (int)myTeam);
+        uIController.CloseUnitDescriptions();
         Destroy(gameObject);
     }
 
