@@ -18,7 +18,7 @@ public class Unit : ScriptableObject
     public Vector2[] Movements = { new Vector2(1, 0), new Vector2(-1, 0), new Vector2(0, -1),
     new Vector2(0, 1) , new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, -1), new Vector2(-1, 1) };
 
-
+    public Building[] constructableBuildings;
 
 
 }

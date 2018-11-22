@@ -7,7 +7,7 @@ public class ViligerController : UnitController
 
 
 
-    public Building[] constructableBuildings;
+    //public Building[] constructableBuildings;
 
 
     Resource myPlayerResources
@@ -30,7 +30,7 @@ public class ViligerController : UnitController
                 }
                 else
                 {
-                    uIController.SetButtonsCreateBuilding(constructableBuildings, this);
+                    uIController.SetButtonsCreateBuilding(unit.constructableBuildings, this);
                 }
             }
     }
@@ -55,7 +55,7 @@ public class ViligerController : UnitController
     }
     public void CreateBuilding(int index)
     {
-        Building selectedBuilding = constructableBuildings[index];
+        Building selectedBuilding = unit.constructableBuildings[index];
         //If I hAD eNOUGHT mONEY
 
 

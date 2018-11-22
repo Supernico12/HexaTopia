@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: Building
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: df3698dce6a4d9c49bdae7f43017d0d0,
+      type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_Name
+    value: Barracks
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: name
+    value: Barracks
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: unitsToProduce.Array.size
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: unitsToProduce.Array.data[0]
+    value: 
+    objectReference: {fileID: 11400000, guid: 9ff74ad007f196c40bd38c8761745461, type: 2}
+  - target: {fileID: 0}
+    propertyPath: unitsToProduce.Array.data[1]
+    value: 
+    objectReference: {fileID: 11400000, guid: 8479c363331206a488eaaa70072a2f90, type: 2}
+  - target: {fileID: 0}
+    propertyPath: unitsToProduce.Array.data[2]
+    value: 
+    objectReference: {fileID: 11400000, guid: 93da383d647346443aed79df0a339215, type: 2}
+  - target: {fileID: 0}
+    propertyPath: type
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: maxUnits
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: cost.food
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: cost.wood
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: cost.gold
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mesh
+    value: 
+    objectReference: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  - target: {fileID: 0}
+    propertyPath: healthUI
+    value: 
+    objectReference: {fileID: 1581172829571502, guid: 33a94e1e341d7e048adff06fbb998467,
+      type: 2}

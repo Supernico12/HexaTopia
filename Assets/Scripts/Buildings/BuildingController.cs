@@ -63,7 +63,15 @@ public class BuildingController : MonoBehaviour
                 GameObject unit = new GameObject(selectedUnit.name);
                 HealthUI healthtxt = unit.AddComponent<HealthUI>();
                 healthtxt.CreateText(building.healthUI);
-                UnitController controller = unit.AddComponent<UnitController>();
+                UnitController controller;
+                if (unit.name == "Villager")
+                {
+                    controller = unit.AddComponent<ViligerController>();
+                }
+                else
+                {
+                    controller = unit.AddComponent<UnitController>();
+                }
                 controller.SetUnit(selectedUnit, this);
                 controller.myTeam = myTeam;
                 currentTile.tile.currentUnit = selectedUnit.type;
