@@ -18,7 +18,7 @@ MonoBehaviour:
   range: 1
   movementSpeed: 1
   cost:
-    food: 0
+    food: 3
     wood: 0
     gold: 0
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}

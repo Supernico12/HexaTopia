@@ -34,8 +34,8 @@ public class TileManager : MonoBehaviour
     bool isFocused;
     bool isUnitSelected;
     bool isBuildingSelected;
-    int columns = 5;
-    int rows = 5;
+    [SerializeField] int columns = 10;
+    [SerializeField] int rows = 10;
 
     int timesClicked = 0;
 
@@ -160,6 +160,7 @@ public class TileManager : MonoBehaviour
         {
             return null;
         }
+
         return tiles[index];
     }
 
@@ -177,9 +178,10 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
-        tiles = tilesParent.GetComponentsInChildren<TileController>();
+
         rows = creator.rows;
         columns = creator.columns;
+        tiles = tilesParent.GetComponentsInChildren<TileController>();
         playersManager = PlayersManager.instance;
         playersManager.OnTurnEnded += OnTurnEnded;
 

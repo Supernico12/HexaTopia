@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3698dce6a4d9c49bdae7f43017d0d0, type: 3}
+  m_Name: TownCenter
+  m_EditorClassIdentifier: 
+  name: TownCenter
+  unitsToProduce:
+  - {fileID: 11400000, guid: 2d6179920b342c34e9f9398bfb42c108, type: 2}
+  type: 4
+  maxUnits: 2
+  cost:
+    food: 0
+    wood: 1
+    gold: 0
+  mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  healthUI: {fileID: 1581172829571502, guid: 33a94e1e341d7e048adff06fbb998467, type: 2}
