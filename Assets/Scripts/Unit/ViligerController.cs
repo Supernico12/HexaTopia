@@ -19,16 +19,20 @@ public class ViligerController : UnitController
     public override void OnSelected()
     {
         base.OnSelected();
-        if (currentTile.tile.currentResource != ResourceType.None)
-        {
-            ResourceController resController = currentTile.GetComponentInChildren<ResourceController>();
-            uIController.SetButtonResource(this, resController.resourceToAdd);
+        if (!hasMoved)
+            if (playersManager.GetTurn == (int)myTeam)
+            {
+                if (currentTile.tile.currentResource != ResourceType.None)
+                {
+                    ResourceController resController = currentTile.GetComponentInChildren<ResourceController>();
+                    uIController.SetButtonResource(this, resController.resourceToAdd);
 
-        }
-        else if (playersManager.GetTurn == (int)myTeam)
-        {
-            uIController.SetButtonsCreateBuilding(constructableBuildings, this);
-        }
+                }
+                else
+                {
+                    uIController.SetButtonsCreateBuilding(constructableBuildings, this);
+                }
+            }
     }
 
     public override void OnDiselected()
@@ -41,6 +45,7 @@ public class ViligerController : UnitController
     public override void Start()
     {
         base.Start();
+        manager = TileManager.instance;
         uIController = UIController.instance;
         playersManager = PlayersManager.instance;
         myStats = new CharacterStats(unit.damage, unit.defence, unit.health, this);
@@ -74,6 +79,8 @@ public class ViligerController : UnitController
                 building.transform.parent = currentTile.transform;
                 building.transform.position = currentTile.transform.position + new Vector3(0, 0.5f, 0);
                 building.transform.localScale /= 2;
+
+                SetCantMove();
 
             }
         }

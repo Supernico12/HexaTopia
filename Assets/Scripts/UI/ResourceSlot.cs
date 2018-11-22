@@ -9,6 +9,7 @@ public class ResourceSlot : MonoBehaviour
     ViligerController vilController;
     Resource resource;
     PlayersManager manager;
+    TileManager tileManager;
 
     public void SetContent(ViligerController cont, Resource res, PlayersManager man)
     {
@@ -25,8 +26,14 @@ public class ResourceSlot : MonoBehaviour
         //Vil end Turn
         // Add Player Resources 
 
+        vilController.SetCantMove();
         manager.GetPlayerResourcesbyTurn().AddResources(resource);
         UIController.instance.OnResourcesChanged();
+        tileManager.Diselect();
 
+    }
+    void Start()
+    {
+        tileManager = TileManager.instance;
     }
 }

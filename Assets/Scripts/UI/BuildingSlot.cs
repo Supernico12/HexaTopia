@@ -5,18 +5,28 @@ using TMPro;
 public class BuildingSlot : MonoBehaviour
 {
     int index;
-    TextMeshProUGUI text;
+
     ViligerController controller;
+    TileManager tileManager;
 
     public void SetContent(ViligerController controller, Building building, int index)
     {
-        text = GetComponentInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI[] text = GetComponentsInChildren<TextMeshProUGUI>();
         this.controller = controller;
-        text.text = building.name;
+        text[0].text = building.name;
         this.index = index;
+
+
     }
     public void OnTouch()
     {
         controller.CreateBuilding(index);
+        tileManager.Diselect();
+
+
+    }
+    void Start()
+    {
+        tileManager = TileManager.instance;
     }
 }

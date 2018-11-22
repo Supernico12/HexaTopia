@@ -16,6 +16,7 @@ public class TileManager : MonoBehaviour
     }
     #endregion
 
+    PlayersManager playersManager;
     [SerializeField] MapCreator creator;
     [SerializeField] Transform tilesParent;
     TileController[] tiles;
@@ -40,32 +41,12 @@ public class TileManager : MonoBehaviour
 
     public void OnFocus(TileController tileController)
     {
-
-        //Previous Tile
-        if (currentController != null)
-        {
-            Material oldmat = currentController.GetComponent<Renderer>().material;
-            oldmat.color = Color.white;
-        }
-
-
         //New Tile
         if (isUnitSelected)
         {
-
-            isUnitSelected = false;
-
             currentSelectedUnit.OnMove(tileController);
-            currentSelectedUnit.OnDiselected();
-            isFocused = false;
-            return;
-
         }
-        if (isBuildingSelected)
-        {
-            isBuildingSelected = false;
-            currentSelectedBuilding.DisFocus();
-        }
+        Diselect();
         if (!isFocused)
         {
 
@@ -79,6 +60,35 @@ public class TileManager : MonoBehaviour
         }
 
         //GetComponent<Renderer>().material = mat;
+
+    }
+
+    public void Diselect()
+    {
+        //Previous Tile
+        if (currentController != null)
+        {
+            Material oldmat = currentController.GetComponent<Renderer>().material;
+            oldmat.color = Color.white;
+        }
+
+        if (isUnitSelected)
+        {
+
+            isUnitSelected = false;
+
+
+            currentSelectedUnit.OnDiselected();
+            isFocused = false;
+            return;
+
+        }
+        if (isBuildingSelected)
+        {
+            isBuildingSelected = false;
+            currentSelectedBuilding.DisFocus();
+        }
+
 
     }
 
@@ -140,6 +150,8 @@ public class TileManager : MonoBehaviour
         tiles = tilesParent.GetComponentsInChildren<TileController>();
         rows = creator.rows;
         columns = creator.columns;
+        playersManager = PlayersManager.instance;
+        playersManager.OnTurnEnded += Diselect;
 
     }
 }

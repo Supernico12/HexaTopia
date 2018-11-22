@@ -91,7 +91,7 @@ public class PlayersManager : MonoBehaviour
 
     public void RemoveUnit(UnitController cont, int index)
     {
-        currentUnit.Remove(cont);
+        playersUnits[index].Remove(cont);
     }
 
 

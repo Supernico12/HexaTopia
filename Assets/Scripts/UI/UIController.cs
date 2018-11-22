@@ -22,6 +22,9 @@ public class UIController : MonoBehaviour
     [SerializeField] Transform resourcesParent;
     [SerializeField] Material[] materials;
     [SerializeField] GameObject buttonPrefab;
+    [SerializeField] Sprite[] resourcesIcons;
+
+
     List<UnitSlot> unitbuttons = new List<UnitSlot>();
     List<BuildingSlot> buildingButtons = new List<BuildingSlot>();
 
@@ -38,6 +41,8 @@ public class UIController : MonoBehaviour
         resourcesText = resourcesParent.GetComponentsInChildren<TextMeshProUGUI>();
         playerManager = PlayersManager.instance;
         playerManager.OnTurnEnded += OnTurnedChange;
+        playerManager.OnTurnEnded += CloseUnitMenu;
+        playerManager.OnTurnEnded += CloseUnitDescriptions;
 
         OnResourcesChanged();
     }
@@ -121,7 +126,8 @@ public class UIController : MonoBehaviour
         }
         buildingButtons.Clear();
 
-        Destroy(resourceSlot);
+        if (resourceSlot != null)
+            Destroy(resourceSlot.gameObject);
     }
 
     public Material GetMaterial(int index)

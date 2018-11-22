@@ -7,7 +7,7 @@ public class UnitController : MonoBehaviour
 {
     [SerializeField] public Unit unit;
 
-    TileManager manager;
+    protected TileManager manager;
     protected TileController currentTile;
     public Teams myTeam;
     public CharacterStats myStats;
@@ -76,10 +76,11 @@ public class UnitController : MonoBehaviour
         {
             if (target.tile.index == possibility.tile.index)
             {
-                SetCantMove();
+
                 if (target.tile.currentUnit == UnitFlags.None)
                 {
                     Move(target);
+                    SetCantMove();
                 }
                 else
                 {
@@ -87,6 +88,7 @@ public class UnitController : MonoBehaviour
                     if (myTeam != targetController.myTeam)
                     {
                         Attack(target);
+                        SetCantMove();
                     }
                 }
 
@@ -98,7 +100,7 @@ public class UnitController : MonoBehaviour
     }
 
     Material mat;
-    void SetCantMove()
+    public void SetCantMove()
     {
         hasMoved = true;
         Renderer ren = GetComponent<Renderer>();
@@ -125,9 +127,12 @@ public class UnitController : MonoBehaviour
 
     public void SetCanMove()
     {
-        hasMoved = false;
-        Renderer ren = GetComponent<Renderer>();
-        ren.material = mat;
+        if (hasMoved)
+        {
+            hasMoved = false;
+            Renderer ren = GetComponent<Renderer>();
+            ren.material = mat;
+        }
 
     }
 
