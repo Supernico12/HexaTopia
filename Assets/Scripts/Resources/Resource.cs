@@ -11,6 +11,7 @@ public class Resource
     public int food = 0;
     public int wood = 0;
     public int gold = 0;
+    public ResourceType type;
 
 
     public Resource(int food = 0, int wood = 0, int gold = 0)

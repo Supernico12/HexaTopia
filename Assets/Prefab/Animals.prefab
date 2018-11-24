@@ -99,3 +99,4 @@ MonoBehaviour:
     food: 1
     wood: 0
     gold: 0
+    type: 1

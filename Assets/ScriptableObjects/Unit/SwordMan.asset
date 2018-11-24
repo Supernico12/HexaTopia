@@ -21,6 +21,7 @@ MonoBehaviour:
     food: 1
     wood: 0
     gold: 0
+    type: 0
   mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
   type: 2
   Movements:
@@ -32,3 +33,4 @@ MonoBehaviour:
   - {x: 1, y: -1}
   - {x: -1, y: -1}
   - {x: -1, y: 1}
+  constructableBuildings: []

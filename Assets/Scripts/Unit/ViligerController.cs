@@ -25,6 +25,7 @@ public class ViligerController : UnitController
                 if (currentTile.tile.currentResource != ResourceType.None)
                 {
                     ResourceController resController = currentTile.GetComponentInChildren<ResourceController>();
+                    resController.ReduceLifeTime();
                     uIController.SetButtonResource(this, resController.resourceToAdd);
 
                 }

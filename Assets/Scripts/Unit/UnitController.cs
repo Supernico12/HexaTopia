@@ -8,7 +8,7 @@ public class UnitController : MonoBehaviour
     [SerializeField] public Unit unit;
 
     protected TileManager manager;
-    protected TileController currentTile;
+    public TileController currentTile;
     public Teams myTeam;
     public CharacterStats myStats;
     protected UIController uIController;

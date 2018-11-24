@@ -153,14 +153,14 @@ public class UIController : MonoBehaviour
         descriptionTexts[2].text = "";
         descriptionTexts[3].text = "Housed: " + housed + "/" + building.maxUnits;
     }
-    public void SetResourceDescription(string name, Resource res)
+    public void SetResourceDescription(string name, ResourceController res)
     {
-
+        int resGive = res.resourceToAdd.GetResourceCost();
         unitsDescriptionParent.gameObject.SetActive(true);
         descriptionTexts[0].text = name;
         descriptionTexts[1].text = "";
-        descriptionTexts[2].text = "";
-        //descriptionTexts[3].text = "Get: " + housed + "/" + building.maxUnits;
+        descriptionTexts[3].text = "Uses left:" + res.GetCurrentLifespawn + "/" + res.GetLifespawn;
+        descriptionTexts[2].text = "Get: " + resGive + " " + res.resourceToAdd.type;
     }
 
     public void CloseUnitDescriptions()
