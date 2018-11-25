@@ -20631,6 +20631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unit: {fileID: 11400000, guid: 2d6179920b342c34e9f9398bfb42c108, type: 2}
+  currentTile: {fileID: 0}
   myTeam: 1
   myStats:
     controller: {fileID: 0}
@@ -20638,6 +20639,8 @@ MonoBehaviour:
     defence: 0
     currentHealth: 0
   myhealthUI: {fileID: 0}
+  hasMoved: 0
+  hasAttack: 0
 --- !u!114 &953235115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25867,7 +25870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

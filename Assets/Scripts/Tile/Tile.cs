@@ -13,6 +13,7 @@ public class Tile
     public int index;
 
 
+
     public Tile(TilesTypes type, int index)
     {
         this.type = type;

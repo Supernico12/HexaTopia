@@ -19,7 +19,7 @@ public class ViligerController : UnitController
     public override void OnSelected()
     {
         base.OnSelected();
-        if (!hasMoved)
+        if (!hasAttack)
             if (playersManager.GetTurn == (int)myTeam)
             {
                 if (currentTile.tile.currentResource != ResourceType.None)
@@ -50,7 +50,7 @@ public class ViligerController : UnitController
         uIController = UIController.instance;
         playersManager = PlayersManager.instance;
         myStats = new CharacterStats(unit.damage, unit.defence, unit.health, this);
-        playersManager.AddUnit(this, (int)myTeam);
+        //playersManager.AddUnit(this, (int)myTeam);
 
 
     }
@@ -82,6 +82,7 @@ public class ViligerController : UnitController
                 building.transform.localScale /= 2;
 
                 SetCantMove();
+
 
             }
         }

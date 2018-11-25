@@ -2,12 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitMotorController : MonoBehaviour
+[System.Serializable]
+public class UnitMotorController
 {
     int columns = 5;
     int rows = 5;
 
+
+    UnitController selectedUnit;
     TileController[] tiles;
+    List<int> possibleTiles = new List<int>();
+
+
+    public UnitMotorController(int rows, int columns, TileController[] tiles)
+    {
+        this.rows = rows;
+        this.columns = columns;
+        this.tiles = tiles;
+    }
+
 
     public int TilesCalculator(int position, Vector2 movement)
     {
@@ -27,35 +40,95 @@ public class UnitMotorController : MonoBehaviour
         return index;
     }
 
-
-    public void OnUnitSelect(UnitController controller)
+    public void CheckMove(UnitController unit)
     {
-        foreach (Vector2 movement in controller.unit.Movements)
-        {
-            int index = TilesCalculator(controller.currentTile.tile.index, movement);
+        ClearTiles();
+        selectedUnit = unit;
+        TileController starttile = unit.GetComponentInParent<TileController>();
 
-            CheckEnums(tiles[index]);
+
+        foreach (Vector2 mov in unit.unit.Movements)
+        {
+            int index = TilesCalculator(starttile.tile.index, mov);
+            if (index > -1)
+            {
+                TileController tile = tiles[index];
+
+                Material mat = tile.GetComponent<Renderer>().material;
+
+                if (!CheckUnit(tile) && !unit.hasMoved)
+                {
+                    possibleTiles.Add(index);
+                    mat.color = Color.green;
+                }
+                else if (CheckUnit(tile))
+                {
+                    Teams targetTeam = tile.GetComponentInChildren<UnitController>().myTeam;
+                    if (unit.myTeam != targetTeam)
+                    {
+                        possibleTiles.Add(index);
+                        mat.color = Color.red;
+                    }
+                }
+            }
+
         }
+        if (possibleTiles.Count == 0)
+        {
+            unit.SetCantMove();
+        }
+    }
+    public void ClearTiles()
+    {
+        foreach (int pos in possibleTiles)
+        {
+
+            Material mat = tiles[pos].GetComponent<Renderer>().material;
+            mat.color = Color.white;
+        }
+        possibleTiles.Clear();
+    }
+    public void ActionUnit(TileController controller, UnitController unit)
+    {
+
+
+        //if(selectedUnit == unit)
+
+        foreach (int pos in possibleTiles)
+        {
+
+            if (tiles[pos].tile.index == controller.tile.index)
+            {
+
+                ClearTiles();
+                if (!CheckUnit(controller))
+                {
+                    unit.Move(controller);
+
+                }
+                else
+                {
+                    unit.Attack(controller);
+                }
+                return;
+            }
+
+        }
+        ClearTiles();
     }
 
 
 
-    public void CheckEnums(TileController tile)
+    bool CheckUnit(TileController controller)
     {
-        // Attack
-        if (tile.tile.currentUnit != UnitFlags.None)
+        if (controller.tile.currentUnit == UnitFlags.None)
         {
-            Material mat = tile.GetComponent<Renderer>().material;
-            mat.color = Color.red;
+            return false;
         }
-        else
-        {
-            Material mat = tile.GetComponent<Renderer>().material;
-            mat.color = Color.green;
-
-        }
-
-
-
+        return true;
     }
 }
+
+
+
+

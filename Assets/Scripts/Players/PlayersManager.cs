@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+
 public class PlayersManager : MonoBehaviour
 {
-    [SerializeField]
+
     List<UnitController>[] playersUnits = new List<UnitController>[1];
     List<UnitController> currentUnit
     {
@@ -44,7 +45,7 @@ public class PlayersManager : MonoBehaviour
 
         for (int i = 0; i < playerBank.Length; i++)
         {
-            playerBank[i] = new Resource(3, 1, 0);
+            playerBank[i] = new Resource(100, 100, 100);
         }
     }
 
@@ -76,7 +77,9 @@ public class PlayersManager : MonoBehaviour
     {
         foreach (UnitController unit in currentUnit)
         {
+
             unit.SetCanMove();
+
         }
     }
 
@@ -91,7 +94,8 @@ public class PlayersManager : MonoBehaviour
 
     public void RemoveUnit(UnitController cont, int index)
     {
-        playersUnits[index].Remove(cont);
+        bool succesfullyremoved = playersUnits[index].Remove(cont);
+
     }
 
 

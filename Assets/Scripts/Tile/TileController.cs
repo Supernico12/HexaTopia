@@ -8,7 +8,7 @@ public class TileController : MonoBehaviour
     public Tile tile;
 
 
-    bool unitSelected;
+
 
 
     void OnMouseDown()

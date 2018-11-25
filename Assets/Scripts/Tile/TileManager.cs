@@ -44,35 +44,39 @@ public class TileManager : MonoBehaviour
 
     public void OnFocus(TileController tileController)
     {
+        //Previous Tile
+
+        if (isUnitSelected)
+        {
+            if (playersManager.GetTurn == (int)currentSelectedUnit.myTeam)
+            {
+                unitMotorController.ActionUnit(tileController, currentSelectedUnit);
+            }
+        }
+
+        Diselect();
+
+
         if (tileController != currentController)
         {
             //New Tile
-            if (isUnitSelected)
-            {
-                currentSelectedUnit.OnMove(tileController);
-            }
-            Diselect();
+
+
             if (!isFocused)
             {
 
-
-                currentController = tileController;
                 timesClicked = 0;
-                CheckEnums();
-
-                Material mat = currentController.GetComponent<Renderer>().material;
-                mat.color = Color.green;
             }
+            else { timesClicked = (timesClicked + 1) % 2; }
         }
-        else
-        {
-            Diselect();
-            timesClicked = (timesClicked + 1) % 2;
-            CheckEnums();
-            Material mat = currentController.GetComponent<Renderer>().material;
-            mat.color = Color.green;
 
-        }
+
+        currentController = tileController;
+        CheckEnums();
+        Material mat = currentController.GetComponent<Renderer>().material;
+        mat.color = Color.green;
+
+
 
         //GetComponent<Renderer>().material = mat;
 
@@ -80,7 +84,6 @@ public class TileManager : MonoBehaviour
 
     public void Diselect()
     {
-        //Previous Tile
         if (currentController != null)
         {
             Material oldmat = currentController.GetComponent<Renderer>().material;
@@ -92,11 +95,11 @@ public class TileManager : MonoBehaviour
 
             isUnitSelected = false;
 
-
-            currentSelectedUnit.OnDiselected();
             isFocused = false;
-            return;
+            currentSelectedUnit.OnDiselected();
+            unitMotorController.ClearTiles();
 
+            return;
         }
         if (isBuildingSelected)
         {
@@ -118,10 +121,11 @@ public class TileManager : MonoBehaviour
     {
         if (currentTile.currentUnit != UnitFlags.None && timesClicked == 0)
         {
-            Debug.Log(currentTile.name + " Has a: " + currentTile.currentUnit);
+            //Debug.Log(currentTile.name + " Has a: " + currentTile.currentUnit);
             currentSelectedUnit = currentController.GetComponentInChildren<UnitController>();
             currentSelectedUnit.SetController(currentController);
             currentSelectedUnit.OnSelected();
+
             isFocused = true;
             isUnitSelected = true;
 
@@ -146,23 +150,7 @@ public class TileManager : MonoBehaviour
     }
 
 
-    public TileController TilesCalculator(int position, Vector2 movement)
-    {
-        int row = (position) / columns;
-        int xrow = (position + (int)movement.x) / columns;
 
-        if (row != xrow)
-        {
-            return null;
-        }
-        int index = position + (int)movement.x + (columns * (int)movement.y);
-        if (index < 0 || index > (rows * columns) - 1)
-        {
-            return null;
-        }
-
-        return tiles[index];
-    }
 
     void OnTurnEnded()
     {
@@ -184,6 +172,12 @@ public class TileManager : MonoBehaviour
         tiles = tilesParent.GetComponentsInChildren<TileController>();
         playersManager = PlayersManager.instance;
         playersManager.OnTurnEnded += OnTurnEnded;
+        unitMotorController = new UnitMotorController(rows, columns, tiles);
 
     }
+
+
+    #region UnitMotorController
+    public UnitMotorController unitMotorController;
+    #endregion
 }

@@ -59,7 +59,7 @@ public class BuildingController : MonoBehaviour
             {
                 myPlayerResources.RemoveResources(selectedUnit.cost);
                 uIController.OnResourcesChanged();
-                Debug.Log(myPlayerResources.wood);
+
                 GameObject unit = new GameObject(selectedUnit.name);
                 HealthUI healthtxt = unit.AddComponent<HealthUI>();
                 healthtxt.CreateText(building.healthUI);

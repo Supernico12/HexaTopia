@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthUI))]
+
 public class UnitController : MonoBehaviour
 {
     [SerializeField] public Unit unit;
@@ -17,9 +18,10 @@ public class UnitController : MonoBehaviour
 
     protected PlayersManager playersManager;
     BuildingController myHouse;
-    List<TileController> possibleTiles = new List<TileController>();
 
-    protected bool hasMoved = false;
+
+    public bool hasMoved = false;
+    public bool hasAttack = false;
     // Deecha , Abajo , Izquierda , Arriba
 
     public void SetUnit(Unit unit, BuildingController myHouse)
@@ -40,80 +42,46 @@ public class UnitController : MonoBehaviour
         //If Selected Unit = Current Turn
         if (playersManager.GetTurn == (int)myTeam)
         {
-            if (!hasMoved)
+            if (!hasAttack)
             {
-                foreach (Vector2 movement in unit.Movements)
-                {
-                    TileController posTile = manager.TilesCalculator(currentTile.tile.index, movement);
-                    if (posTile != null)
-                    {
-                        Material mat = posTile.GetComponent<Renderer>().material;
-                        mat.color = Color.red;
-                        possibleTiles.Add(posTile);
+                //Check Posible Move / Attack
+                manager.unitMotorController.CheckMove(this);
 
 
-                    }
-                }
             }
+
+
+
         }
         uIController.SetDescriptionUnit(unit, myStats.currentHealth);
     }
 
     public virtual void OnDiselected()
     {
-        foreach (TileController markedTile in possibleTiles)
-        {
-            Material mat = markedTile.GetComponent<Renderer>().material;
-            mat.color = Color.white;
-        }
-        possibleTiles.Clear();
+
+
         uIController.CloseUnitDescriptions();
     }
 
-    public void OnMove(TileController target)
-    {
-        foreach (TileController possibility in possibleTiles)
-        {
-            if (target.tile.index == possibility.tile.index)
-            {
 
-                if (target.tile.currentUnit == UnitFlags.None)
-                {
-                    Move(target);
-                    SetCantMove();
-                }
-                else
-                {
-                    UnitController targetController = target.GetComponentInChildren<UnitController>();
-                    if (myTeam != targetController.myTeam)
-                    {
-                        Attack(target);
-                        SetCantMove();
-                    }
-                }
-
-            }
-
-
-        }
-
-    }
 
     Material mat;
     public void SetCantMove()
     {
-        hasMoved = true;
-        Renderer ren = GetComponent<Renderer>();
-        mat = ren.material;
-        Material newMat = new Material(ren.material);
-        Color newCol = newMat.color;
-        //newCol *= 1.6f;
-        newCol *= Color.gray;
-        newCol.a = 1;
-        newMat.color = newCol;
+        if (!hasAttack)
+        {
+            hasAttack = true;
+            Renderer ren = GetComponent<Renderer>();
+            mat = ren.material;
+            Material newMat = new Material(ren.material);
+            Color newCol = newMat.color;
+            //newCol *= 1.6f;
+            newCol *= Color.gray;
+            newCol.a = 1;
+            newMat.color = newCol;
 
-        ren.material = newMat;
-
+            ren.material = newMat;
+        }
         /*
             var red = Color.red;
                 var lightRed = red * 1.5f;
@@ -127,18 +95,17 @@ public class UnitController : MonoBehaviour
 
     public void SetCanMove()
     {
-        if (hasMoved)
-        {
-            hasMoved = false;
-            Renderer ren = GetComponent<Renderer>();
-            ren.material = mat;
-        }
+
+        hasAttack = false;
+        hasMoved = false;
+        Renderer ren = GetComponent<Renderer>();
+        ren.material = mat;
 
     }
 
-    void Move(TileController newController)
+    public void Move(TileController newController)
     {
-
+        hasMoved = true;
         //Previous Tile
         currentTile.tile.currentUnit = UnitFlags.None;
 
@@ -163,8 +130,9 @@ public class UnitController : MonoBehaviour
         SetCantMove();
         myhealthUI.OnChangeValue(unit.health);
     }
-    void Attack(TileController target)
+    public void Attack(TileController target)
     {
+        SetCantMove();
         CharacterStats targetStats = target.GetComponentInChildren<UnitController>().myStats;
         float attackForce = (myStats.currentHealth / unit.health) * myStats.damage;
         float defenceForce = (targetStats.currentHealth / targetStats.controller.unit.health) * targetStats.defence;
@@ -188,6 +156,8 @@ public class UnitController : MonoBehaviour
 
     public void Die()
     {
+
+        Debug.Log(unit.name + " Has Died");
         currentTile.tile.currentUnit = UnitFlags.None;
         if (myHouse != null)
             myHouse.RemoveUnit();
@@ -195,6 +165,7 @@ public class UnitController : MonoBehaviour
         playersManager.RemoveUnit(this, (int)myTeam);
         uIController.CloseUnitDescriptions();
         Destroy(gameObject);
+
     }
 
 }
