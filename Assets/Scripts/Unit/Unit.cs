@@ -20,7 +20,20 @@ public class Unit : ScriptableObject
 
     public Building[] constructableBuildings;
 
-
+    public void TransformNumToMovement(int num)
+    {
+        Vector2[] newMovement = new Vector2[100];
+        for (int y = 0; y < movementSpeed; y++)
+        {
+            for (int x = 0; x < movementSpeed; x++)
+            {
+                newMovement[y * (2 + x)] = new Vector2(x, y);
+                newMovement[y * (2 + x) + 1] = new Vector2(-x, y);
+                newMovement[y * (2 + x) + 3] = new Vector2(x, -y);
+                newMovement[y * (2 + x) + 4] = new Vector2(-x, -y);
+            }
+        }
+    }
 }
 
 public enum Teams { Player1, Player2, Player3, Player4 };
