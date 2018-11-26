@@ -45,10 +45,9 @@ public class PlayersManager : MonoBehaviour
 
         for (int i = 0; i < playerBank.Length; i++)
         {
-            playerBank[i] = new Resource(3, 1, 0);
+            playerBank[i] = new Resource(100, 100, 100);
         }
-        newMovement = new Vector2[100];
-        TransformNumToMovement(3);
+
     }
 
 
@@ -107,26 +106,7 @@ public class PlayersManager : MonoBehaviour
         get { return turn; }
     }
 
-    Vector2[] newMovement;
-    public void TransformNumToMovement(int num)
-    {
-        newMovement[0] = new Vector2(0, 1);
-        newMovement[1] = new Vector2(1, 0);
-        newMovement[2] = new Vector2(0, -1);
-        newMovement[3] = new Vector2(-1, 0);
 
-        for (int y = 1; y <= num; y++)
-        {
-            for (int x = 1; x <= num; x++)
-            {
-
-                newMovement[x * 4] = new Vector2(x, y);
-                //newMovement[y * 4 + x] = new Vector2(-x, y);
-                //newMovement[y * 4 + x + 1] = new Vector2(x, -y);
-                //newMovement[y * 4 + x + 2] = new Vector2(-x, -y);
-            }
-        }
-    }
 }
 
 

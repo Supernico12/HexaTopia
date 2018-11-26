@@ -65,6 +65,10 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: cost.type
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mesh
     value: 
     objectReference: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
@@ -139,4 +143,8 @@ Preset:
   - target: {fileID: 0}
     propertyPath: Movements.Array.data[7].y
     value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: constructableBuildings.Array.size
+    value: 0
     objectReference: {fileID: 0}
