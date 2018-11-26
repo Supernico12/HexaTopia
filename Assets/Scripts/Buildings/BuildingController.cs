@@ -46,6 +46,7 @@ public class BuildingController : MonoBehaviour
         uIController.CloseUnitMenu();
         uIController.CloseUnitDescriptions();
         isFocused = false;
+
     }
 
     public void CreateUnit(int index)

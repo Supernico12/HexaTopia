@@ -89,7 +89,7 @@ public class UIController : MonoBehaviour
         unitsButtonsParent.gameObject.SetActive(true);
     }
 
-    public void SetButtonResource(ViligerController vilController, Resource res)
+    public void SetButtonResource(ViligerController vilController, ResourceController res)
     {
         GameObject button = Instantiate(buttonPrefab, unitsButtonsParent);
         Button buttonScript = button.GetComponent<Button>();

@@ -39,46 +39,52 @@ public class TileManager : MonoBehaviour
 
     int timesClicked = 0;
 
-
+    public bool hasDragged;
 
 
     public void OnFocus(TileController tileController)
     {
+
         //Previous Tile
-
-        if (isUnitSelected)
+        if (!hasDragged)
         {
-            if (playersManager.GetTurn == (int)currentSelectedUnit.myTeam)
+
+            if (isUnitSelected)
             {
-                unitMotorController.ActionUnit(tileController, currentSelectedUnit);
+                if (playersManager.GetTurn == (int)currentSelectedUnit.myTeam)
+                {
+                    unitMotorController.ActionUnit(tileController, currentSelectedUnit);
+                }
             }
-        }
 
-        Diselect();
-
-
-        if (tileController != currentController)
-        {
-            //New Tile
+            Diselect();
 
 
-            if (!isFocused)
+            if (tileController != currentController)
             {
+                //New Tile
 
-                timesClicked = 0;
+
+                if (!isFocused)
+                {
+
+                    timesClicked = 0;
+                }
+
             }
             else { timesClicked = (timesClicked + 1) % 2; }
+
+
+            currentController = tileController;
+            CheckEnums();
+            Material mat = currentController.GetComponent<Renderer>().material;
+            mat.color = Color.green;
+
+
+
+            //GetComponent<Renderer>().material = mat;
         }
-
-
-        currentController = tileController;
-        CheckEnums();
-        Material mat = currentController.GetComponent<Renderer>().material;
-        mat.color = Color.green;
-
-
-
-        //GetComponent<Renderer>().material = mat;
+        else { hasDragged = false; }
 
     }
 

@@ -7,13 +7,13 @@ public class ResourceSlot : Slot
 {
 
     ViligerController vilController;
-    Resource resource;
+    ResourceController resource;
     PlayersManager manager;
     TileManager tileManager;
 
-    public void SetContent(ViligerController cont, Resource res, PlayersManager man)
+    public void SetContent(ViligerController cont, ResourceController res, PlayersManager man)
     {
-        base.SetContent(res);
+        base.SetContent(res.resourceToAdd);
         resource = res;
         vilController = cont;
         manager = man;
@@ -28,9 +28,10 @@ public class ResourceSlot : Slot
         // Add Player Resources 
 
         vilController.SetCantMove();
-        manager.GetPlayerResourcesbyTurn().AddResources(resource);
+        manager.GetPlayerResourcesbyTurn().AddResources(resource.resourceToAdd);
         UIController.instance.OnResourcesChanged();
         tileManager.Diselect();
+        resource.ReduceLifeTime();
 
     }
     void Start()

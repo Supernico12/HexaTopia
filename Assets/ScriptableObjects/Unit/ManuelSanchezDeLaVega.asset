@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: ManuelSanchezDeLaVega
   m_EditorClassIdentifier: 
   name: ManuelSanchezDeLaVega
-  health: 1
+  health: 10
   damage: 100
   defence: 1
   range: 1
@@ -21,6 +21,7 @@ MonoBehaviour:
     food: 0
     wood: 0
     gold: 3
+    type: 0
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   type: 2
   Movements:
@@ -32,3 +33,4 @@ MonoBehaviour:
   - {x: 1, y: -1}
   - {x: -1, y: -1}
   - {x: -1, y: 1}
+  constructableBuildings: []

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TileController : MonoBehaviour
 {
@@ -11,13 +12,32 @@ public class TileController : MonoBehaviour
 
 
 
-    void OnMouseDown()
+    void OnMouseUp()
     {
         //Debug.Log(name);
-        manager.OnFocus(this);
+        if (!IsPointerOverGameObject())
+            manager.OnFocus(this);
 
 
 
+    }
+    public static bool IsPointerOverGameObject()
+    {
+        //check mouse
+        if (EventSystem.current.IsPointerOverGameObject())
+            return true;
+
+        if (EventSystem.current.IsPointerOverGameObject(0))
+            return true;
+
+        //check touch
+        if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began)
+        {
+            if (EventSystem.current.IsPointerOverGameObject(Input.touches[0].fingerId))
+                return true;
+        }
+
+        return false;
     }
 
     void Start()
