@@ -61,7 +61,19 @@ public class UnitMotorController
                     possibleTiles.Add(index);
                     mat.color = Color.green;
                 }
-                else if (CheckUnit(tile))
+
+            }
+        }
+        foreach (Vector2 mov in unit.unit.rangeMov)
+        {
+            int index = TilesCalculator(starttile.tile.index, mov);
+            if (index > -1)
+            {
+                TileController tile = tiles[index];
+
+                Material mat = tile.GetComponent<Renderer>().material;
+
+                if (CheckUnit(tile))
                 {
                     Teams targetTeam = tile.GetComponentInChildren<UnitController>().myTeam;
                     if (unit.myTeam != targetTeam)
@@ -70,12 +82,13 @@ public class UnitMotorController
                         mat.color = Color.red;
                     }
                 }
-            }
 
+            }
         }
         if (possibleTiles.Count == 0)
         {
-            unit.SetCantMove();
+            if (unit.name != "Villager")
+                unit.SetCantMove();
         }
     }
     public void ClearTiles()

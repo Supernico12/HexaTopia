@@ -10,9 +10,10 @@ public class ModifyUnits : MonoBehaviour
     {
         foreach (Unit unit in unitsToModify)
         {
-            //unit.Movements = TransformNumToMovement(unit.movementSpeed);
+            unit.Movements = TransformNumToMovement(unit.movementSpeed);
+            unit.rangeMov = TransformNumToMovement(unit.range);
         }
-        newMovement = TransformNumToMovement(3);
+        //newMovement = TransformNumToMovement(3);
     }
 
     public Vector2[] newMovement;
@@ -20,9 +21,9 @@ public class ModifyUnits : MonoBehaviour
     public Vector2[] TransformNumToMovement(int num)
     {
         //Vector2[] newMovement;
-        newMovement = new Vector2[150];
-        //newMovement = new Vector2[num * 4 * num + (num * 4)];
-        Debug.Log(num * 4 * num + (num * 4));
+        //newMovement = new Vector2[150];
+        newMovement = new Vector2[num * 4 * num + (num * 4)];
+
 
 
         for (int i = 1; i <= num; i++)
@@ -37,7 +38,7 @@ public class ModifyUnits : MonoBehaviour
         {
             for (int x = 1; x <= num; x++)
             {
-                int index = (y * num * 4) + x * 4;
+                int index = (y * num * 4) + (x - 1) * 4;
                 Debug.Log(index);
                 newMovement[index] = new Vector2(x, y);
                 newMovement[index + 1] = new Vector2(-x, y);

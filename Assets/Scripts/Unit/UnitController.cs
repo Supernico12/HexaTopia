@@ -143,13 +143,15 @@ public class UnitController : MonoBehaviour
         targetStats.controller.myhealthUI.OnChangeValue(targetStats.currentHealth);
         if (targetStats.currentHealth > 0)
         {
-            myStats.TakeDamage(hisDamage);
+            if (targetStats.range >= myStats.range)
+                myStats.TakeDamage(hisDamage);
             myhealthUI.OnChangeValue(myStats.currentHealth);
 
         }
         else
         {
-            Move(target);
+            if (myStats.range < 2)
+                Move(target);
         }
 
     }

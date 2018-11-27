@@ -86,7 +86,7 @@ public class BuildingController : MonoBehaviour
                 unit.transform.position = currentTile.transform.position + new Vector3(0, 1, 0);
                 unit.transform.localScale /= 2;
                 housedAmount++;
-                controller.SetStats(new CharacterStats(selectedUnit.damage, selectedUnit.defence, selectedUnit.health, controller));
+                controller.SetStats(new CharacterStats(selectedUnit, controller));
                 playersManager.AddUnit(controller);
 
                 DisFocus();

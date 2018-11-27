@@ -10,15 +10,17 @@ public class CharacterStats
 
     public float damage;
     public float defence;
+    public int range;
 
     public float currentHealth;
 
-    public CharacterStats(float damage, float defence, float currentHealth, UnitController controller)
+    public CharacterStats(Unit unit, UnitController controller)
     {
-        this.damage = damage;
-        this.defence = defence;
-        this.currentHealth = currentHealth;
+        this.damage = unit.damage;
+        this.defence = unit.defence;
+        this.currentHealth = unit.health;
         this.controller = controller;
+        this.range = unit.range;
     }
 
     public void TakeDamage(float damage)

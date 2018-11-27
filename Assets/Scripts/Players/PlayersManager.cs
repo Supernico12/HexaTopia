@@ -45,7 +45,7 @@ public class PlayersManager : MonoBehaviour
 
         for (int i = 0; i < playerBank.Length; i++)
         {
-            playerBank[i] = new Resource(100, 100, 100);
+            playerBank[i] = new Resource(3, 1, 0);
         }
 
     }

@@ -18,21 +18,30 @@ MonoBehaviour:
   range: 1
   movementSpeed: 1
   cost:
-    food: 3
+    food: 1
     wood: 0
     gold: 0
     type: 0
   mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   type: 1
   Movements:
-  - {x: 1, y: 0}
-  - {x: -1, y: 0}
-  - {x: 0, y: -1}
   - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: 0, y: -1}
+  - {x: -1, y: 0}
   - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: 1, y: -1}
   - {x: -1, y: -1}
+  rangeMov:
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: 0, y: -1}
+  - {x: -1, y: 0}
+  - {x: 1, y: 1}
   - {x: -1, y: 1}
+  - {x: 1, y: -1}
+  - {x: -1, y: -1}
   constructableBuildings:
   - {fileID: 11400000, guid: 34d38290e45aa954faef8b5dd282f793, type: 2}
   - {fileID: 11400000, guid: cf98054e1adbc4341af5df2d46fc7fdd, type: 2}

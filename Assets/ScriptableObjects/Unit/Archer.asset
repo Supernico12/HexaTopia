@@ -14,21 +14,48 @@ MonoBehaviour:
   name: Archer
   health: 10
   damage: 1
-  defence: 2
+  defence: 1
   range: 2
   movementSpeed: 1
   cost:
     food: 0
     wood: 1
     gold: 0
+    type: 0
   mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   type: 3
   Movements:
-  - {x: 1, y: 0}
-  - {x: -1, y: 0}
-  - {x: 0, y: -1}
   - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: 0, y: -1}
+  - {x: -1, y: 0}
   - {x: 1, y: 1}
+  - {x: -1, y: 1}
   - {x: 1, y: -1}
   - {x: -1, y: -1}
+  rangeMov:
+  - {x: 0, y: 1}
+  - {x: 1, y: 0}
+  - {x: 0, y: -1}
+  - {x: -1, y: 0}
+  - {x: 0, y: 2}
+  - {x: 2, y: 0}
+  - {x: 0, y: -2}
+  - {x: -2, y: 0}
+  - {x: 1, y: 1}
   - {x: -1, y: 1}
+  - {x: 1, y: -1}
+  - {x: -1, y: -1}
+  - {x: 2, y: 1}
+  - {x: -2, y: 1}
+  - {x: 2, y: -1}
+  - {x: -2, y: -1}
+  - {x: 1, y: 2}
+  - {x: -1, y: 2}
+  - {x: 1, y: -2}
+  - {x: -1, y: -2}
+  - {x: 2, y: 2}
+  - {x: -2, y: 2}
+  - {x: 2, y: -2}
+  - {x: -2, y: -2}
+  constructableBuildings: []

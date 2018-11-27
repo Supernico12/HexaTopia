@@ -49,7 +49,7 @@ public class ViligerController : UnitController
         manager = TileManager.instance;
         uIController = UIController.instance;
         playersManager = PlayersManager.instance;
-        myStats = new CharacterStats(unit.damage, unit.defence, unit.health, this);
+        //myStats = new CharacterStats(unit.damage, unit.defence, unit.health, this);
         //playersManager.AddUnit(this, (int)myTeam);
 
 
