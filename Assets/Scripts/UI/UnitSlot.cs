@@ -13,11 +13,16 @@ public class UnitSlot : Slot
     TextMeshProUGUI text;
     BuildingController controller;
     UIController uIController;
-
+    Unit unit;
+    Button info;
 
     public void SetContent(Unit unit, BuildingController control, int index)
     {
         base.SetContent(unit.cost);
+        info = transform.Find("Info").GetComponent<Button>();
+        info.onClick.AddListener(OnInfoButton);
+        info.gameObject.SetActive(true);
+        this.unit = unit;
         uIController = UIController.instance;
 
         text = GetComponentInChildren<TextMeshProUGUI>();
@@ -29,6 +34,11 @@ public class UnitSlot : Slot
     public virtual void OnTouch()
     {
         controller.CreateUnit(index);
+    }
+
+    public void OnInfoButton()
+    {
+        uIController.SetUnitsInFo(unit);
     }
 
 

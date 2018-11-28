@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Archer
   health: 10
-  damage: 1
+  damage: 1.3
   defence: 1
   range: 2
   movementSpeed: 1

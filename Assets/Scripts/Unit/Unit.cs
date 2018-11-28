@@ -7,6 +7,7 @@ using UnityEngine;
 public class Unit : ScriptableObject
 {
     public new string name = "New Unit";
+    public string description;
     public float health = 10;
     public float damage = 1;
     public float defence = 1;

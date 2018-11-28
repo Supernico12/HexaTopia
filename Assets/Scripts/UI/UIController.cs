@@ -19,6 +19,7 @@ public class UIController : MonoBehaviour
 
     [SerializeField] Transform unitsButtonsParent;
     [SerializeField] Transform unitsDescriptionParent;
+    [SerializeField] Transform unitsInfoParent;
     [SerializeField] Transform resourcesParent;
     [SerializeField] Material[] materials;
     [SerializeField] GameObject buttonPrefab;
@@ -34,6 +35,7 @@ public class UIController : MonoBehaviour
 
     TextMeshProUGUI[] descriptionTexts;
     TextMeshProUGUI[] resourcesText;
+
     PlayersManager playerManager;
     void Start()
     {
@@ -161,6 +163,19 @@ public class UIController : MonoBehaviour
         descriptionTexts[1].text = "";
         descriptionTexts[3].text = "Uses left:" + res.GetCurrentLifespawn + "/" + res.GetLifespawn;
         descriptionTexts[2].text = "Get: " + resGive + " " + res.resourceToAdd.type;
+    }
+
+    public void SetUnitsInFo(Unit unit)
+    {
+        unitsInfoParent.gameObject.SetActive(true);
+        TextMeshProUGUI[] infoTexts = unitsInfoParent.GetComponentsInChildren<TextMeshProUGUI>();
+        infoTexts[0].text = unit.name;
+        infoTexts[1].text = unit.description;
+        infoTexts[2].text = unit.health.ToString();
+        infoTexts[3].text = unit.damage.ToString();
+        infoTexts[4].text = unit.defence.ToString();
+        infoTexts[5].text = unit.range.ToString();
+        infoTexts[6].text = unit.movementSpeed.ToString();
     }
 
     public void CloseUnitDescriptions()

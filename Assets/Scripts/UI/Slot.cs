@@ -17,4 +17,5 @@ public class Slot : MonoBehaviour
         text[1].text = res.GetResourceCost().ToString();
     }
 
+
 }
