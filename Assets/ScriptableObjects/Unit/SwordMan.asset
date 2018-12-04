@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: SwordMan
   m_EditorClassIdentifier: 
   name: SwordMan
+  description: A sword with legs and arms
   health: 10
   damage: 2
   defence: 1
@@ -33,4 +34,5 @@ MonoBehaviour:
   - {x: 1, y: -1}
   - {x: -1, y: -1}
   - {x: -1, y: 1}
+  rangeMov: []
   constructableBuildings: []

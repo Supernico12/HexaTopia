@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: VillagerUnit
   m_EditorClassIdentifier: 
   name: Villager
+  description: 'Collect resources and build '
   health: 10
   damage: 1
   defence: 1
@@ -44,4 +45,6 @@ MonoBehaviour:
   - {x: -1, y: -1}
   constructableBuildings:
   - {fileID: 11400000, guid: 34d38290e45aa954faef8b5dd282f793, type: 2}
+  - {fileID: 11400000, guid: 020fe06e68c257d43af2ce850bb5b6dc, type: 2}
+  - {fileID: 11400000, guid: 6afe1a1774334244aa6d7d23e08058ab, type: 2}
   - {fileID: 11400000, guid: cf98054e1adbc4341af5df2d46fc7fdd, type: 2}

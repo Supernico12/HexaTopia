@@ -9,6 +9,7 @@ public class BuildingSlot : Slot
 
     ViligerController controller;
     TileManager tileManager;
+    Building building;
 
     public void SetContent(ViligerController controller, Building building, int index)
     {
@@ -18,7 +19,7 @@ public class BuildingSlot : Slot
         this.controller = controller;
         text.text = building.name;
         this.index = index;
-
+        this.building = building;
 
     }
     public void OnTouch()
@@ -27,6 +28,10 @@ public class BuildingSlot : Slot
         tileManager.Diselect();
 
 
+    }
+    public override void OnInfoButton()
+    {
+        UIController.instance.SetBuildingsInfo(building);
     }
     void Start()
     {

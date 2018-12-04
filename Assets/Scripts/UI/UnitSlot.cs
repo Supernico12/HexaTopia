@@ -19,9 +19,7 @@ public class UnitSlot : Slot
     public void SetContent(Unit unit, BuildingController control, int index)
     {
         base.SetContent(unit.cost);
-        info = transform.Find("Info").GetComponent<Button>();
-        info.onClick.AddListener(OnInfoButton);
-        info.gameObject.SetActive(true);
+
         this.unit = unit;
         uIController = UIController.instance;
 
@@ -36,7 +34,7 @@ public class UnitSlot : Slot
         controller.CreateUnit(index);
     }
 
-    public void OnInfoButton()
+    public override void OnInfoButton()
     {
         uIController.SetUnitsInFo(unit);
     }

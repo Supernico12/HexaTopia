@@ -9,18 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df3698dce6a4d9c49bdae7f43017d0d0, type: 3}
-  m_Name: Barracks
+  m_Name: Archery Range
   m_EditorClassIdentifier: 
-  name: Barracks
+  name: Archery Range
   unitsToProduce:
-  - {fileID: 11400000, guid: 9ff74ad007f196c40bd38c8761745461, type: 2}
-  - {fileID: 11400000, guid: 93da383d647346443aed79df0a339215, type: 2}
-  type: 1
+  - {fileID: 11400000, guid: 8479c363331206a488eaaa70072a2f90, type: 2}
+  type: 2
   maxUnits: 3
   cost:
     food: 0
     wood: 1
     gold: 0
     type: 0
-  mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
   healthUI: {fileID: 1581172829571502, guid: 33a94e1e341d7e048adff06fbb998467, type: 2}
